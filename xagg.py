@@ -5,16 +5,16 @@
 
 Stephen Po-Chedley 9 May 2019
 
-This is a wrapper for runing xagg software. It makes use of: 
+This is a wrapper for runing xagg software. It makes use of:
 	runSettings.py 	- runtime variables for software
 	fx.py 			- functions called by this wrapper
 
-There are a number of command line options. These can be viewed using: 
+There are a number of command line options. These can be viewed using:
 	./xagg.py --help
 
 The environment was created / implemented using:
 
-	conda create -n cdat81  -c cdat/label/v81 -c conda-forge cdat scandir joblib tqdm
+	conda create -n cdat81 -c cdat/label/v81 -c conda-forge cdat scandir joblib
 	conda activate cdat81
 
 @author: pochedls
@@ -51,7 +51,7 @@ if INIPYTHON == False: # Look for cmd line arguments if we are NOT in Ipython
 						help="Flag (TRUE/FALSE) to update SQL database (default is TRUE)")
 	parser.add_argument('-s', '--updateScans', type=str2bool,
 						default=True,
-						help="Flag (TRUE/FALSE) to run cdscan (default is TRUE)")    
+						help="Flag (TRUE/FALSE) to run cdscan (default is TRUE)")
 	parser.add_argument('-out', '--outputDirectory', type=str,
 						default = '/p/user_pub/xclim/',
 						help="Base output directory for xml files (default /p/user_pub/xclim/)")
@@ -60,16 +60,16 @@ if INIPYTHON == False: # Look for cmd line arguments if we are NOT in Ipython
 						help="Number of processors for creating xml files (default 20)")
 	parser.add_argument('-c', '--countStats', type=str2bool,
 						default = True,
-						help="Boolean to record statistics on xml database")  
+						help="Boolean to record statistics on xml database")
 	parser.add_argument('-e', '--experiment', type=str,
 						default = '',
-						help="Comma separated list of experiments (e.g., piControl,abrupt4xCO2,rcp85)")      
+						help="Comma separated list of experiments (e.g., piControl,abrupt4xCO2,rcp85)")
 	parser.add_argument('-f', '--frequency', type=str,
 						default = '',
-						help="Comma separated list of frequencies (e.g., mon,day,3hr)")   
+						help="Comma separated list of frequencies (e.g., mon,day,3hr)")
 	parser.add_argument('-v', '--variable', type=str,
 						default = '',
-						help="Comma separated list of variables (e.g., tas,ts,ps)")                                                          
+						help="Comma separated list of variables (e.g., tas,ts,ps)")
 
 	args = parser.parse_args()
 
@@ -86,7 +86,7 @@ else:
 
 	updatePaths = True
 	updateScans = True
-	outputDirectory = '/p/user_pub/xclim/'
+	outputDirectory = '/export/durack1/tmp/' ; # '/p/user_pub/xclim/'
 	numProcessors = 20
 	countStats = True
 	experimentIn = ''
@@ -112,13 +112,13 @@ if frequencyIn != '':
 	frequencies = frequencyIn.split(',')
 
 if variableIn != '':
-	variables = variableIn.split(',')	
+	variables = variableIn.split(',')
 
 # ensure database is initialized
 if not os.path.exists(sqlDB):
 	print('Initializing database')
 	print(time.ctime())
-	print()	
+	print()
 	fx.initializeDB(sqlDB)
 
 # get all paths
@@ -133,7 +133,7 @@ if updatePaths:
 if not os.path.exists(cmipMetaFile):
 	print('Initializing CMIP Meta File')
 	print(time.ctime())
-	print()	
+	print()
 	fx.createLookupDictionary(diskPaths, outfile=cmipMetaFile)
 
 # get paths in database
@@ -175,7 +175,7 @@ if updateScans:
 		inList = [scanList[i] for i in Idx]
 		nTotal += len(inList)
 		print(time.ctime() + ': ' + str(nTotal) + '/' + str(len(scanList)) + ' (' + str(np.round(nTotal/len(scanList)*100, 1)) + '%) ', end='')
-		# scan chunk 
+		# scan chunk
 		s = time.time()
 		results = fx.scanChunk(inList, numProcessors, outputDirectory)
 		e = time.time()

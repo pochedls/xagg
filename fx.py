@@ -4,7 +4,7 @@
 
 Stephen Po-Chedley 9 May 2019
 
-This is a library of helper functions for xagg. 
+This is a library of helper functions for xagg.
 
 Functions:
         lookupCMIPMetadata
@@ -65,21 +65,21 @@ def lookupCMIPMetadata(mip_era, cmipTable, variable, dictObj={}):
     """
     frequency, realm, dimensions = lookupCMIPMetadata(mip_era, cmipTable, variable, dictObj={})
 
-    This function helps gather CMIP5/6 metadata needed to create the grid label. 
+    This function helps gather CMIP5/6 metadata needed to create the grid label.
     It will use a pickle dictionary if provided, otherwise it gets the information
-    from the CMIP tables. Using the pickle file is much faster. 
+    from the CMIP tables. Using the pickle file is much faster.
 
     To create the pickle file, use: createLookupDictionary
 
-    To download the CMIP tables, use: ../tools/updateTables.sh 
+    To download the CMIP tables, use: ../tools/updateTables.sh
 
-    Inputs: 
+    Inputs:
             mip_era: 'CMIP5' | 'CMIP6'
             cmipTable: e.g. 'Amon'
             variable: e.g. 'ta'
-            dictObj: pickle file (dictionary) that returns appropriate outputs for given inputs.  
+            dictObj: pickle file (dictionary) that returns appropriate outputs for given inputs.
 
-    Returns (strings): 
+    Returns (strings):
             frequency, realm, dimensions
     """
     key = mip_era + '.' + cmipTable + '.' + variable
@@ -93,7 +93,7 @@ def lookupCMIPMetadata(mip_era, cmipTable, variable, dictObj={}):
     if mip_era == 'CMIP6':
         fn = 'data/cmip6/CMIP6_' + cmipTable + '.json'
         with open(fn) as f:
-            data = json.load(f)    
+            data = json.load(f)
         frequency = data['variable_entry'][variable]['frequency']
         realm = data['variable_entry'][variable]['modeling_realm'].split(' ')[0]
         dimensions = data['variable_entry'][variable]['dimensions'].split(' ')
@@ -106,13 +106,13 @@ def lookupCMIPMetadata(mip_era, cmipTable, variable, dictObj={}):
         for line in lines:
             if line.find('frequency:') >= 0:
                 frequency = line.split(' ')[1].split('\n')[0]
-            if line.find('variable_entry:') >= 0: 
-                if line.find(variable + '\n') >= 0: 
+            if line.find('variable_entry:') >= 0:
+                if line.find(variable + '\n') >= 0:
                     inVar = True
             if ((line.find('modeling_realm:') >= 0) & (inVar)):
-                realm = line.split(' ')[-1].split('\n')[0]    
+                realm = line.split(' ')[-1].split('\n')[0]
             if ((line.find('dimensions:') >= 0) & (inVar)):
-                dimensions = line.split('  ')[-1].split('\n')[0].split(' ')   
+                dimensions = line.split('  ')[-1].split('\n')[0].split(' ')
                 break
 
     return frequency, realm, dimensions
@@ -122,25 +122,25 @@ def produceCMIP5Activity(experiment):
     activity = produceCMIP5Activity(experiment)
 
     This function returns the appropriate activity for a given experiment. This
-    is essentially a hardcoded dictionary.  
+    is essentially a hardcoded dictionary.
 
-    Inputs: 
+    Inputs:
             experiment (string): e.g. 'historical'
 
-    Returns: 
+    Returns:
             activity (string)
-    """    
-    activityTable = {'sst2030' : 'CFMIP', 'sstClim' : 'RFMIP', 'sstClim4xCO2' : 'RFMIP', 
-                    'sstClimAerosol' : 'RFMIP', 'sstClimSulfate' : 'RFMIP', 
-                    'amip4xCO2' : 'CFMIP', 'amipFuture' : 'CFMIP', 'aquaControl' : 'CFMIP', 
-                    'aqua4xCO2' : 'CFMIP', 'aqua4K' : 'CFMIP', 'amip4K' : 'CFMIP', 
+    """
+    activityTable = {'sst2030' : 'CFMIP', 'sstClim' : 'RFMIP', 'sstClim4xCO2' : 'RFMIP',
+                    'sstClimAerosol' : 'RFMIP', 'sstClimSulfate' : 'RFMIP',
+                    'amip4xCO2' : 'CFMIP', 'amipFuture' : 'CFMIP', 'aquaControl' : 'CFMIP',
+                    'aqua4xCO2' : 'CFMIP', 'aqua4K' : 'CFMIP', 'amip4K' : 'CFMIP',
                     'piControl' : 'CMIP', 'historical' : 'CMIP', 'esmControl' : 'CMIP',
-                    'esmHistorical' : 'CMIP', '1pctCO2' : 'CMIP', 'abrupt4xCO2' : 'CMIP', 
-                    'amip' : 'CMIP', 'historicalExt' : 'CMIP', 'esmrcp85' : 'C4MIP', 
-                    'esmFixClim1' : 'C4MIP', 'esmFixClim2' : 'C4MIP', 'esmFdbk1' : 'C4MIP', 
-                    'esmFdbk2' : 'C4MIP', 'historicalNat' : 'DAMIP', 'historicalGHG' : 'DAMIP', 
-                    'historicalMisc' : 'DAMIP', 'midHolocene' : 'PMIP', 'lgm' : 'PMIP', 
-                    'past1000' : 'PMIP', 'rcp45' : 'ScenarioMIP', 'rcp85' : 'ScenarioMIP', 
+                    'esmHistorical' : 'CMIP', '1pctCO2' : 'CMIP', 'abrupt4xCO2' : 'CMIP',
+                    'amip' : 'CMIP', 'historicalExt' : 'CMIP', 'esmrcp85' : 'C4MIP',
+                    'esmFixClim1' : 'C4MIP', 'esmFixClim2' : 'C4MIP', 'esmFdbk1' : 'C4MIP',
+                    'esmFdbk2' : 'C4MIP', 'historicalNat' : 'DAMIP', 'historicalGHG' : 'DAMIP',
+                    'historicalMisc' : 'DAMIP', 'midHolocene' : 'PMIP', 'lgm' : 'PMIP',
+                    'past1000' : 'PMIP', 'rcp45' : 'ScenarioMIP', 'rcp85' : 'ScenarioMIP',
                     'rcp26' : 'ScenarioMIP', 'rcp60' : 'ScenarioMIP'}
 
     reDec = re.compile(r'decadal[0-9]{4}')
@@ -156,46 +156,46 @@ def produceCMIP5Activity(experiment):
 def ensure_dir(file_path):
     """
 
-    Function ensures there is a directory for a given file. 
+    Function ensures there is a directory for a given file.
 
-    """         
+    """
     directory = os.path.dirname(file_path)
     if not os.path.exists(directory):
         try:
-            os.makedirs(directory)      
+            os.makedirs(directory)
         except OSError:
-            pass 
+            pass
 
 def createGridLabel(mip_era, realm, cmipTable, grid, dimensions):
     """
 
     gridLabel = createGridLabel(mip_era, realm, cmipTable, grid, dimensions)
 
-    This function creates a grid label.  
+    This function creates a grid label.
 
-    Inputs: 
+    Inputs:
             mip_era: 'CMIP5' | 'CMIP6'
             realm: e.g. 'atmos'
             cmipTable: e.g. 'Amon'
             grid: e.g. 'gm'
             dimensions (list): e.g. ['longitude', 'latitude', 'plevs', 'time']
 
-    Returns: 
+    Returns:
             gridLabel
-    """        
+    """
     # get realm id
-    realmIdLookup = {'aerosol' : 'ae', 'atmos' : 'ap', 'atmosChem' : 'ac', 
-                    'land' : 'ld', 'landIce' : 'gi', 'seaIce' : 'si', 
+    realmIdLookup = {'aerosol' : 'ae', 'atmos' : 'ap', 'atmosChem' : 'ac',
+                    'land' : 'ld', 'landIce' : 'gi', 'seaIce' : 'si',
                     'ocean' : 'op', 'ocnBgchem' : 'oc', 'river' : 'rr'}
     # realmId = realmIdLookup[realm]
-    
+
     # vert-id lookup information
     z1List = set(['height2m', 'height10m', 'depth0m', 'depth100m', 'olayer100m', 'sdepth1', 'sdepth10', 'height100m', 'depth300m', 'depth700m', 'depth2000m'])
     lList = set(['olevel', 'olevhalf', 'alevel', 'alevhalf'])
     reP = re.compile(r'p[0-9]')
     pCheck = [not not re.search(reP,i) for i in dimensions]
     rePl = re.compile(r'pl[0-9]')
-    plCheck = [not not re.search(rePl,i) for i in dimensions]    
+    plCheck = [not not re.search(rePl,i) for i in dimensions]
     rePlev = re.compile(r'plev[0-9]')
     plevCheck = [not not re.search(rePlev,i) for i in dimensions]
 
@@ -207,20 +207,20 @@ def createGridLabel(mip_era, realm, cmipTable, grid, dimensions):
     elif (any(pCheck) | any(plCheck)):
         vertId = 'p1'
     elif len(lList.intersection(set(dimensions))) > 0:
-        vertId = 'l'        
+        vertId = 'l'
     elif 'alev1'in dimensions:
         vertId = 'l1'
     elif 'sdepth'in dimensions:
         vertId = 'z'
     elif 'alt16'in dimensions:
-        vertId = 'z16'        
+        vertId = 'z16'
     elif 'alt40'in dimensions:
         vertId = 'z40'
     elif 'rho'in dimensions:
-        vertId = 'd'      
-    elif 'plevs' in dimensions:  
-        vertId = 'p17'         
-    elif any(plevCheck):  
+        vertId = 'd'
+    elif 'plevs' in dimensions:
+        vertId = 'p17'
+    elif any(plevCheck):
         dimensions = np.array(dimensions)
         vertId = 'p' + dimensions[plevCheck][0].split('plev')[1]
     else:
@@ -239,7 +239,7 @@ def createGridLabel(mip_era, realm, cmipTable, grid, dimensions):
 
     # get h1 variable
     locList = set(['site', 'oline', 'basin', 'siline', 'location'])
-    dimList = set(['latitude', 'yant', 'ygre', 'longitude', 'xant', 'yant'])    
+    dimList = set(['latitude', 'yant', 'ygre', 'longitude', 'xant', 'yant'])
     if len(locList.intersection(set(dimensions))) > 0:
         h1 = 's'
     elif cmipTable in ('AERmonZ', 'E6hrZ', 'EdayZ', 'EmonZ'):
@@ -263,30 +263,30 @@ def createGridLabel(mip_era, realm, cmipTable, grid, dimensions):
 
 def parsePath(path, dictObj={}):
     """
-    
+
     validPath, keyId, mip_era, activity, institute, \
     model, experiment, member, cmipTable, realm, \
     frequency, variable, grid, gridLabel, version = parsePath(path, dictObj={})
 
     This function parses a directory path for CMIP metadata. A pickle file
     can optionally be provided to lookup missing CMIP metadata. If this is not
-    provided it will search the CMIP table information for the necesary information, 
-    which is much slower (see lookupCMIPMetadata). 
+    provided it will search the CMIP table information for the necesary information,
+    which is much slower (see lookupCMIPMetadata).
 
-    Inputs: 
+    Inputs:
             path (string)
             dictObj (string of filename)
 
-    Returns: 
+    Returns:
             validPath, keyId, mip_era, activity, institute, model, experiment, ...
             member, cmipTable, realm, frequency, variable, grid, gridLabel, version
 
     Note that validPath is a boolean denoting whether a path contains valid data (True)
-    or not (False) based on logic from the path only (it doesn't check for netCDF files). 
+    or not (False) based on logic from the path only (it doesn't check for netCDF files).
 
-    """  
-    meta = path.split('/')[1:-1]   
-    
+    """
+    meta = path.split('/')[1:-1]
+
     validPath = True
     # remove double versions
     if meta[-2] == meta[-3]:
@@ -304,11 +304,11 @@ def parsePath(path, dictObj={}):
             grid = meta[-2]
             variable = meta[-3]
             cmipTable = meta[-4]
-            member = meta[-5] 
+            member = meta[-5]
             experiment = meta[-6]
             model = meta[-7]
             institute = meta[-8]
-            activity = meta[-9] 
+            activity = meta[-9]
             mip_era = meta[-10].upper()
             try:
                 frequency, realm, dimensions = lookupCMIPMetadata(mip_era, cmipTable, variable, dictObj)
@@ -323,7 +323,7 @@ def parsePath(path, dictObj={}):
             member = meta[-3]
             cmipTable = meta[-4]
             realm = meta[-5]
-            frequency = meta[-6]            
+            frequency = meta[-6]
             experiment = meta[-7]
             model = meta[-8]
             institute = meta[-9]
@@ -332,7 +332,7 @@ def parsePath(path, dictObj={}):
             grid = 'gu'
             frequencyx, realmx, dimensions = lookupCMIPMetadata(mip_era, cmipTable, variable, dictObj)
             if frequency == 'monClim':
-                frequency = 'monC'            
+                frequency = 'monC'
             if 'time1' in dimensions:
                 frequency = frequency + 'Pt'
             gridLabel = createGridLabel(mip_era, realm, cmipTable, grid, dimensions)
@@ -342,21 +342,21 @@ def parsePath(path, dictObj={}):
             member = meta[-3]
             cmipTable = meta[-4]
             realm = meta[-5]
-            frequency = meta[-6]            
+            frequency = meta[-6]
             experiment = meta[-7]
             model = meta[-8]
             institute = meta[-9]
             activity = produceCMIP5Activity(experiment)
             mip_era = 'CMIP5'
-            grid = 'gu'                
+            grid = 'gu'
             frequencyx, realmx, dimensions = lookupCMIPMetadata(mip_era, cmipTable, variable, dictObj)
             if frequency == 'monClim':
-                frequency = 'monC'            
+                frequency = 'monC'
             if 'time1' in dimensions:
-                frequency = frequency + 'Pt'            
+                frequency = frequency + 'Pt'
             gridLabel = createGridLabel(mip_era, realm, cmipTable, grid, dimensions)
         keyId = [mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version]
-        keyId = '.'.join(keyId)            
+        keyId = '.'.join(keyId)
     else:
         validPath = False
         version = []
@@ -381,10 +381,10 @@ def scantree(path):
     """
     scantree(path)
 
-    This is an iterator method that recursively scans for directories that meet the 
+    This is an iterator method that recursively scans for directories that meet the
     following criteria:
         1. The directory has no sub-directories
-        2. The directory contains files 
+        2. The directory contains files
 
     It is based on:
         https://stackoverflow.com/questions/33135038/how-do-i-use-os-scandir-to-return-direntry-objects-recursively-on-a-directory
@@ -399,10 +399,10 @@ def toSQLtime(time):
     '''
     sqlTime = toSQLtime(time)
 
-    Function takes a datetime object and returns a SQL-like datestring 
+    Function takes a datetime object and returns a SQL-like datestring
     '''
     time = "{:02d}".format(time.year) + '-' + "{:02d}".format(time.month) + '-' + "{:02d}".format(time.day) + ' ' + "{:02d}".format(time.hour) + ':' + "{:02d}".format(time.minute) + ':' + "{:02d}".format(time.second)
-    
+
     return time
 
 def sqltimeToDatetime(sqltime):
@@ -410,7 +410,7 @@ def sqltimeToDatetime(sqltime):
     time = sqltimeToDatetime(sqltime)
 
     Function takes a SQL-like datestring and returns a datetime object
-    '''    
+    '''
     d = sqltime.split(' ')[0]
     t = sqltime.split(' ')[1]
     y = int(d.split('-')[0])
@@ -426,14 +426,14 @@ def findDiskPaths(path):
     dpaths = findDiskPaths(path)
 
     Function uses the scantree iterator to check all eligible paths
-    that fall under a parent path (input: path) for their created (ctime), 
-    modified (mtime), and accessed (atime) times. It returns this in a dictionary 
-    object: 
+    that fall under a parent path (input: path) for their created (ctime),
+    modified (mtime), and accessed (atime) times. It returns this in a dictionary
+    object:
 
-    Returns: 
-        dbPaths[childPath] = {'ctime' : ctime, 'mtime' : mtime, 'atime' : atime} 
+    Returns:
+        dbPaths[childPath] = {'ctime' : ctime, 'mtime' : mtime, 'atime' : atime}
 
-    '''       
+    '''
     x = scantree(path)
     dpaths = {}
     s = time.time()
@@ -453,12 +453,12 @@ def getDBPaths(sqlDB):
 
     Function uses the specified sql database and returns all information
     about each path in the database in a dictionary. The dictionary key
-    is the path. 
+    is the path.
 
-    Input: 
+    Input:
         sqlDb (string): filename of sqlite file
 
-    Returns: 
+    Returns:
         db[path]
 
     db[path] is then a sub-dictionary that contains all columns in the database:
@@ -466,15 +466,15 @@ def getDBPaths(sqlDB):
         keyid, mip_era, activity, institute, model, experiment, member, cmipTable, realm, ...
         frequency, variable, grid, gridLabel, version, created, modified, accessed, xmlFile, ...
         xmlwritedatetime, error, retired, retire_datetime, ignored, ignored_datetime
-        
-    '''     
+
+    '''
     conn = sqlite3.connect(sqlDB)
     c = conn.cursor()
     # Get all paths
     c.execute('select * from paths;')
     a = c.fetchall()
-    conn.close() 
-    db = {}   
+    conn.close()
+    db = {}
     for row in a:
         db[row[0]] = {'keyid' : row[1], 'mip_era' : row[2], 'activity' : row[3], 'institute' : row[4], 'model' : row[5], 'experiment' : row[6], 'member' : row[7], 'cmipTable' : row[8], 'realm' : row[9], 'frequency' : row[10], 'variable' : row[11], 'grid' : row[12], 'gridLabel' : row[13], 'version' : row[14], 'created' : row[15], 'modified' : row[16], 'accessed' : row[17], 'xmlFile' : row[18], 'xmlwritedatetime' : row[19], 'error' : row[20], 'retired' : row[21], 'retire_datetime' : row[22], 'ignored' : row[23], 'ignored_datetime' : row[23]}
     return db
@@ -484,98 +484,98 @@ def getInvalidDBPaths(sqlDB):
     db = getInvalidDBPaths(sqlDB)
 
     Function uses the specified sql database and returns a list
-    of paths that are known to be invalid. 
+    of paths that are known to be invalid.
 
-    Input: 
+    Input:
         sqlDb (string): filename of sqlite file
 
-    Returns: 
+    Returns:
         invalidPaths (list)
-        
-    '''        
+
+    '''
     conn = sqlite3.connect(sqlDB)
     c = conn.cursor()
     # Create table
     c.execute('select path from invalid_paths;')
     a = c.fetchall()
-    conn.close() 
+    conn.close()
     db = []
     for row in a:
         db.append(row[0])
-    return db   
+    return db
 
 def getRetiredDBPaths(sqlDB):
     '''
     db = getRetiredDBPaths(sqlDB)
 
     Function uses the specified sql database and returns a list
-    of paths that are known to be retired. 
+    of paths that are known to be retired.
 
-    Input: 
+    Input:
         sqlDb (string): filename of sqlite file
 
-    Returns: 
+    Returns:
         retiredPaths (list)
-        
-    '''            
+
+    '''
     conn = sqlite3.connect(sqlDB)
     c = conn.cursor()
     # Create table
     c.execute('select path from paths where retired = 1;')
     a = c.fetchall()
-    conn.close() 
+    conn.close()
     db = []
     for row in a:
         db.append(row[0])
-    return db        
+    return db
 
 def initializeDB(sqlDB):
     '''
     initializeDB(sqlDB)
 
     Function initialized a sqlite database with the correct
-    tables to be used with xagg software. 
+    tables to be used with xagg software.
 
-    Input: 
+    Input:
         sqlDb (string): filename of sqlite file
-        
-    '''      
+
+    '''
     conn = sqlite3.connect(sqlDB)
     c = conn.cursor()
     # Create table
     c.execute('''drop table if exists paths;''')
     c.execute('''CREATE TABLE paths
                  (path varchar(255), keyid varchar(255), mip_era varchar(255), activity varchar(255), institute varchar(255), model varchar(255), experiment varchar(255), member varchar(255), cmipTable varchar(255), realm varchar(255), frequency varchar(255), variable varchar(255), grid varchar(255), gridLabel varchar(255), version varchar(255), created datetime, modified datetime, accessed datetime, xmlFile varchar(255), xmlwritedatetime datetime, error varchar(255), retired BOOLEAN, retire_datetime datetime, ignored BOOLEAN, ignored_datetime DATETIME)''')
-    c.execute('''CREATE INDEX pathIndex ON paths (path);''')   
+    c.execute('''CREATE INDEX pathIndex ON paths (path);''')
     c.execute('''drop table if exists invalid_paths;''')
-    c.execute('''CREATE TABLE invalid_paths (path varchar(255), datetime DATETIME)''')   
+    c.execute('''CREATE TABLE invalid_paths (path varchar(255), datetime DATETIME)''')
     c.execute('''drop table if exists stats;''')
-    c.execute('''CREATE TABLE stats (indicator varchar(255), value int, datetime DATETIME)''')   
+    c.execute('''CREATE TABLE stats (indicator varchar(255), value int, datetime DATETIME)''')
     c.execute('''drop table if exists runs;''')
-    c.execute('''CREATE TABLE runs (datetime DATETIME, total INT, new INT, invalid INT, modified INT, missing INT, returned INT, deleted INT)''')   
+    c.execute('''CREATE TABLE runs (datetime DATETIME, total INT, new INT, invalid INT, modified INT, missing INT, returned INT, deleted INT)''')
     # Save (commit) the changes
     conn.commit()
     # We can also close the connection if we are done with it.
     # Just be sure any changes have been committed or they will be lost.
-    conn.close()    
+    conn.close()
 
 def parallelFindData(data_directories, numProcessors=20, split=[], rmDir=[]):
     '''
     diskStat = parallelFindData(data_directories, numProcessors=20, split=[], rmDir=[])
 
-    Function simply parallelizes findDiskPaths to speed up the search for eligible paths. 
+    Function simply parallelizes findDiskPaths to speed up the search for eligible paths.
 
-    Input: 
+    Input:
         data_directories (list): list of parent directories to search
         num_processors (int): number of processors to use (default 20)
         split (list): list of parent directories that should be split apart into separate threads
                       e.g., '/parent/' -> ['parent/child1', 'parent/child2']
         rmDir (list): list of directories to ignore while scanning
 
-    Returns: 
-        dbPaths[childPath] = {'ctime' : ctime, 'mtime' : mtime, 'atime' : atime}         
-        
-    '''         
+    Returns:
+        dbPaths[childPath] = {'ctime' : ctime, 'mtime' : mtime, 'atime' : atime}
+
+    '''
     # grab the right number of processors
     for d in split:
         dlist = glob.glob(d + '/*/')
@@ -602,22 +602,22 @@ def createLookupDictionary(paths, outfile='data/cmipMeta.pkl'):
     """
     createLookupDictionary(paths, outfile='data/cmipMeta.pkl')
 
-    Function processes a bunch of paths and stores a dictionary file with 
+    Function processes a bunch of paths and stores a dictionary file with
     metadata lookup information. This allows you to quickly determine a path's
-    frequency, realm, and dimensions (which are not contained in the directory 
-    structure). 
+    frequency, realm, and dimensions (which are not contained in the directory
+    structure).
 
-    Inputs: 
+    Inputs:
             paths (list)
             outfile (string filename), default 'data/cmipMeta.pkl'
             variable: e.g. 'ta'
-            dictObj: pickle file (dictionary) that returns appropriate outputs for given inputs.  
+            dictObj: pickle file (dictionary) that returns appropriate outputs for given inputs.
     """
     dictObj = {}
     for i, p in enumerate(paths):
         if np.mod(i,10000) == 0:
             print(str(i) + '/' + str(len(paths)))
-        validPath, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version = parsePath(p)
+        validPath, keyId, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version  = parsePath(p)
         key = mip_era + '.' + cmipTable + '.' + variable
         if key in dictObj:
             continue
@@ -635,11 +635,11 @@ def getCMIPMeta(outfile='data/cmipMeta.pkl'):
     dictObj = getCMIPMeta(outfile='data/cmipMeta.pkl')
 
     Function reads the CMIP Metadata pickle file and returns the information
-    as an in-memory dictionary. 
+    as an in-memory dictionary.
 
-    """    
+    """
     with open(outfile, 'rb') as f:
-        dictObj = pickle.load(f)   
+        dictObj = pickle.load(f)
     return dictObj
 
 def createFilename(xmlOutputDir, pathMeta):
@@ -647,9 +647,9 @@ def createFilename(xmlOutputDir, pathMeta):
     fn = createFilename(xmlOutputDir, pathMeta)
 
     Function contains the logic to create output filenames for a given output
-    directory and path metadata. 
+    directory and path metadata.
 
-    Inputs: 
+    Inputs:
         xmlOutputDir (string): directory which contains the xml file tree (e.g., '/data/goes/here/')
         pathMeta (dictionary): dictionary object containing necesary metadata to create filename (specified below)
 
@@ -659,7 +659,7 @@ def createFilename(xmlOutputDir, pathMeta):
     pathMeta contains the following keys:
         mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version
 
-    """       
+    """
     reDec = re.compile(r'decadal[0-9]{4}')
     if not not re.search(reDec, pathMeta['experiment']):
         experimentPath = 'decadal'
@@ -668,9 +668,9 @@ def createFilename(xmlOutputDir, pathMeta):
     # output filename
     if pathMeta['frequency'] == 'fx':
         fn = xmlOutputDir + '/' + pathMeta['mip_era'] + '/' + pathMeta['frequency'] + '/' + pathMeta['variable'] + '/' + pathMeta['mip_era'] + '.' + pathMeta['activity'] + '.' + pathMeta['experiment'] + '.' + pathMeta['institute'] + '.' + pathMeta['model'] + '.' + pathMeta['member'] + '.' + pathMeta['frequency'] + '.' + pathMeta['variable'] + '.' + pathMeta['realm'] + '.' + pathMeta['gridLabel'] + '.' + pathMeta['version'] + '.0000000.0.xml'
-    else:    
+    else:
         fn = xmlOutputDir + '/' + pathMeta['mip_era'] + '/' + pathMeta['activity'] + '/' + experimentPath + '/' + pathMeta['realm'] + '/' + pathMeta['frequency'] + '/' + pathMeta['variable'] + '/' + pathMeta['mip_era'] + '.' + pathMeta['activity'] + '.' + pathMeta['experiment'] + '.' + pathMeta['institute'] + '.' + pathMeta['model'] + '.' + pathMeta['member'] + '.' + pathMeta['frequency'] + '.' + pathMeta['variable'] + '.' + pathMeta['realm'] + '.' + pathMeta['gridLabel'] + '.' + pathMeta['version'] + '.0000000.0.xml'
-    fn = fn.replace('//','/') 
+    fn = fn.replace('//','/')
 
     return fn
 
@@ -678,40 +678,40 @@ def xmlWrite(inpath, outfile):
     """
     xmlWrite(inpath, outfile)
 
-    Function calls cdscan to create an xml file (outfile) for a given 
-    directory of CMIP data (inpath). 
+    Function calls cdscan to create an xml file (outfile) for a given
+    directory of CMIP data (inpath).
 
-    Inputs: 
+    Inputs:
         inpath (string): directory containing input files
         outfile (string): xml file to write
 
-    Returns: 
+    Returns:
         out, err: command output and error message strings
 
-    """        
+    """
     cmd = 'cdscan -x ' + outfile + ' ' + inpath + '/*.nc'
     cmd = cmd.replace('//', '/')
     p = Popen(cmd,shell=True,stdout=PIPE,stderr=PIPE)
-    out,err = p.communicate() 
-    return out, err  
+    out,err = p.communicate()
+    return out, err
 
 def errorLogic(fn, inpath, err):
     """
     fn, err = errorLogic(fn, inpath, err)
 
     Function processes error messages and groups the errors into a subset of categories. It then
-    renames the xmlFile (if present) to reflect these errors. 
+    renames the xmlFile (if present) to reflect these errors.
 
-    Inputs: 
+    Inputs:
         fn (string): xml filename
         inpath: path of input netCDF data
         err: error message returned during xmlWrite call
 
-    Returns: 
+    Returns:
         fn: final filename
         error: processed error message
 
-    """ 
+    """
     # check for zero sized files and other no write errors (if there xml did not write)
     zeroSize = False
     error = None
@@ -735,7 +735,7 @@ def errorLogic(fn, inpath, err):
             error = 'Cannot allocate memory'
         elif str(err).find('Invalid relative time units') >= 0:
             error = 'Invalid relative time units'
-        else:    
+        else:
             error = 'No write'
     else:
         # if xml wrote to disk, update error codes in filename
@@ -754,15 +754,15 @@ def getWarnings(err):
     """
     errorCode = getWarnings(err)
 
-    Function parses warning messages for more specific error. 
+    Function parses warning messages for more specific error.
 
-    Inputs: 
+    Inputs:
         err: error message returned during xmlWrite call
 
-    Returns: 
+    Returns:
         errorCode: subsetted warning message
 
-    """     
+    """
     errstart = err.find('Warning') ; # Indexing returns value for "W" of warning
     err1 = err.find(' to: [')
     if err1 == -1: err1 = len(err)-1 ; # Warning resetting axis time values
@@ -779,19 +779,19 @@ def getWarnings(err):
     errPython = err.find('Traceback (most recent call last)')
     if errPython > 0:
         errorCode = errorCode + 'Python Error'
-    
+
     return errorCode
 
 def parseWarnings(err):
     """
     errorCode = parseWarnings(err)
 
-    Function parses subsetted warning messages for exact error code [0-6]. 
+    Function parses subsetted warning messages for exact error code [0-6].
 
-    Inputs: 
-        err: Subsetted warning from getWarning. 
+    Inputs:
+        err: Subsetted warning from getWarning.
 
-    Returns: 
+    Returns:
         errorCode: string specifying error category (details below)
 
     '0000000'   - no warnings
@@ -801,9 +801,9 @@ def parseWarnings(err):
         1       - Zero infile size
          1      - Dimension time overlaps...
           1     - Your first bounds...
-           1    - Python error ... 
+           1    - Python error ...
 
-    """      
+    """
     errorCode = list('0000000')
     if err.find('dimension time contains values in file') >= 0:
         errorCode[0] = '1'
@@ -812,37 +812,37 @@ def parseWarnings(err):
     if err.find('Warning: resetting latitude values') >= 0:
         errorCode[2] = '1'
     if err.find('zero infile size') >= 0:
-        errorCode[3] = '1'                        
+        errorCode[3] = '1'
     if err.find('dimension time overlaps file') + err.find('dimension time contains values in file') >= 0:
         errorCode[4] = '1'
     if err.find('Your first bounds') >= 0:
-        errorCode[5] = '1'        
+        errorCode[5] = '1'
     if err.find('Python Error') >= 0:
-        errorCode[6] = '1'                
-    errorCode = "".join(errorCode)        
+        errorCode[6] = '1'
+    errorCode = "".join(errorCode)
     return errorCode
 
 def sqlUpdate(sqlDB, table, columns, constraint, datalist):
     """
     sqlUpdate(sqlDB, table, columns, constraint, datalist)
 
-    Function will update rows in sqlite database with new information. 
+    Function will update rows in sqlite database with new information.
 
-    Inputs: 
+    Inputs:
         sqlDB: string filename
         table (string): table to update
         columns (list): columns to update
         constraint (string): column which is used as a constraint
-        dataList: list containing new data 
+        dataList: list containing new data
 
     dataList is a list such that each row contains columns to update
     followed by the constraint
         dataList: ['blue', None, 'audi', 5]
     where 'newData', NoneN, and 'otherNewData' are the updated information and
     5 is the constraint. This could correspond to a constraint like 'number'
-    and columns like ['color', 'animal', 'model_car']. 
+    and columns like ['color', 'animal', 'model_car'].
 
-    """       
+    """
     if type(columns) == str:
         columns = [columns]
     q = 'UPDATE ' + table + ' SET ' + '=?, '.join(columns) + '=? WHERE ' + constraint + '=?;'
@@ -854,30 +854,30 @@ def sqlUpdate(sqlDB, table, columns, constraint, datalist):
         for i in range(int(np.ceil(len(datalist)/1000))):
             ro = datalist[i*1000:i*1000+1000]
             c.executemany(q, ro)
-            conn.commit()     
-    else:     
+            conn.commit()
+    else:
         c.executemany(q, datalist)
-        conn.commit()   
+        conn.commit()
     conn.close() # close connection
 
 def sqlInsert(sqlDB, table, columns, datalist):
     """
     sqlInsert(sqlDB, table, columns, datalist)
 
-    Function will update rows in sqlite database with new information. 
+    Function will update rows in sqlite database with new information.
 
-    Inputs: 
+    Inputs:
         sqlDB: string filename
         table (string): table to update
         columns (list): columns to update
-        dataList: list containing new data 
+        dataList: list containing new data
 
     dataList is a list such that each row contains columns to insert
         dataList: ['blue', None, 'audi', 5]
-    where 'newData', None, and 'otherNewData' are the new information. 
-    This could correspond to columns like ['color', 'animal', 'model_car']. 
+    where 'newData', None, and 'otherNewData' are the new information.
+    This could correspond to columns like ['color', 'animal', 'model_car'].
 
-    """        
+    """
     q = 'INSERT INTO ' + table + '(' + ', '.join(columns) + ') VALUES(' + '?,' * (len(columns) - 1) + '?);'
     # connect to db
     conn = sqlite3.connect(sqlDB)
@@ -891,22 +891,22 @@ def process_path(xmlOutputDir, pathMeta, inpath):
     """
     inpath, fn, xmlwritetime, error = process_path(xmlOutputDir, pathMeta, inpath)
 
-    Function processes a path by creating an output filename for the xml file, 
-    creates an xml file for a given directory, and processes any error messages. 
+    Function processes a path by creating an output filename for the xml file,
+    creates an xml file for a given directory, and processes any error messages.
 
     Inputs:
         xmlOutputDir (string): base directory for xml tree
         pathMeta (dictionary): dictionary object containing necesary metadata to create filename (specified below)
         inpath (string): directory which contains the netCDF data to process
 
-    Returns: 
-        inpath (string): directory which contains the netCDF data to process 
+    Returns:
+        inpath (string): directory which contains the netCDF data to process
         fn (string): filename of xmlfile written out (or None if applicable)
         xmlwritetime: sql datetime string of xml write time
         error: parsed error message
 
     pathMeta contains the following keys:
-        mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version        
+        mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version
 
     """
     fn = createFilename(xmlOutputDir, pathMeta)
@@ -937,16 +937,16 @@ def updateDatabaseHoldings(sqlDB, diskPaths, diskStat, dbPaths, db, invalidPaths
 
     Inputs:
         sqlDB: string filename
-        diskPaths: keys of all disk paths 
+        diskPaths: keys of all disk paths
         diskStat: Dictionary of stat information for each path (see findDiskPaths)
         dbPaths: keys of all paths in the database
         db: database dictionary object (see getDBPaths)
         invalidPaths: list of invalid paths (see getInvalidDBPaths)
         retiredPaths: list of retired paths (see getRetiredDBPaths)
-        quiet (optional, boolean): suppress display information if True (default False) 
+        quiet (optional, boolean): suppress display information if True (default False)
 
     """
-    # create sets for lists to speed up logic 
+    # create sets for lists to speed up logic
     retiredPaths = set(retiredPaths)
     invalidPaths = set(invalidPaths)
 
@@ -974,10 +974,10 @@ def updateDatabaseHoldings(sqlDB, diskPaths, diskStat, dbPaths, db, invalidPaths
         if p in retiredPaths:
             continue
         if p not in diskPaths:
-            missingPaths.append(p)  
+            missingPaths.append(p)
 
     newCount = 0
-    invalidCount = 0 
+    invalidCount = 0
     modifiedCount = len(modifiedPaths)
     missingCount = len(missingPaths)
     unretiredCount = len(unretirePaths)
@@ -1001,7 +1001,7 @@ def updateDatabaseHoldings(sqlDB, diskPaths, diskStat, dbPaths, db, invalidPaths
                 stop
             if validPath:
                 litem = [p, keyId, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version, diskStat[p]['ctime'], diskStat[p]['mtime'], diskStat[p]['atime'], 0, 0]
-                newList.append(litem)   
+                newList.append(litem)
             else:
                 invalidList.append([p, toSQLtime(datetime.datetime.now())])
 
@@ -1012,7 +1012,7 @@ def updateDatabaseHoldings(sqlDB, diskPaths, diskStat, dbPaths, db, invalidPaths
         if not quiet:
             print('Writing new paths')
             print(time.ctime())
-            print() 
+            print()
         columns = ['path', 'keyId', 'mip_era', 'activity', 'institute', 'model', 'experiment', 'member', 'cmipTable', 'realm', 'frequency', 'variable', 'grid', 'gridLabel', 'version', 'created', 'modified', 'accessed', 'retired', 'ignored']
         sqlInsert(sqlDB, 'paths', columns, newList)
         # write invalid paths to database
@@ -1029,7 +1029,7 @@ def updateDatabaseHoldings(sqlDB, diskPaths, diskStat, dbPaths, db, invalidPaths
         modifiedList = []
         for p in modifiedPaths:
             litem = [diskStat[p]['ctime'], diskStat[p]['mtime'], diskStat[p]['atime'], None, None, None, 0, None, 0, None, p]
-            modifiedList.append(litem)  
+            modifiedList.append(litem)
 
         columns = ['created', 'modified', 'accessed', 'xmlFile', 'xmlwritedatetime', 'error', 'retired', 'retire_datetime', 'ignored', 'ignored_datetime']
         sqlUpdate(sqlDB, 'paths', columns, 'path', modifiedList)
@@ -1045,51 +1045,51 @@ def updateDatabaseHoldings(sqlDB, diskPaths, diskStat, dbPaths, db, invalidPaths
         unretiredList = []
         for p in unretirePaths:
             litem = [diskStat[p]['ctime'], diskStat[p]['mtime'], diskStat[p]['atime'], None, None, None, 0, None, 0, None, p]
-            unretiredList.append(litem)  
-        
+            unretiredList.append(litem)
+
         columns = ['created', 'modified', 'accessed', 'xmlFile', 'xmlwritedatetime', 'error', 'retired', 'retire_datetime', 'ignored', 'ignored_datetime']
-        sqlUpdate(sqlDB, 'paths', columns, 'path', unretiredList)    
+        sqlUpdate(sqlDB, 'paths', columns, 'path', unretiredList)
 
     ## process paths where directory is missing
     if missingCount > 0:
         if not quiet:
             print('Retiring missing data')
             print(time.ctime())
-            print()   
+            print()
 
-        # update missing paths in database     
+        # update missing paths in database
 
         columns = ['xmlFile', 'xmlwritedatetime', 'error', 'retired', 'retire_datetime', 'ignored', 'ignored_datetime']
         missingList = []
         for p in missingPaths:
             litem = [None, None, None, 1, toSQLtime(datetime.datetime.now()), 0, None, p]
-            missingList.append(litem)  
+            missingList.append(litem)
 
-        sqlUpdate(sqlDB, 'paths', columns, 'path', missingList)  
-    
+        sqlUpdate(sqlDB, 'paths', columns, 'path', missingList)
+
     ## Delete retired / modified xml files
     if (missingCount + modifiedCount) > 0:
         if not quiet:
             print('Removing xml files for modified / missing data')
             print(time.ctime())
-            print()  
+            print()
 
         for p in missingPaths:
-            xfn = db[p]['xmlFile'] 
+            xfn = db[p]['xmlFile']
             if xfn is not None:
                 if os.path.exists(xfn):
                     os.remove(xfn)
                     deleteCount += 1
 
         for p in modifiedPaths:
-            xfn = db[p]['xmlFile'] 
+            xfn = db[p]['xmlFile']
             if xfn is not None:
                 if os.path.exists(xfn):
-                    os.remove(xfn)                
+                    os.remove(xfn)
                     deleteCount += 1
 
-    ## Write out 
-    columns = ['datetime', 'total', 'new', 'invalid', 'modified', 'missing', 'returned', 'deleted']  
+    ## Write out
+    columns = ['datetime', 'total', 'new', 'invalid', 'modified', 'missing', 'returned', 'deleted']
     row = [[toSQLtime(datetime.datetime.now()), len(diskPaths), newCount, invalidCount, modifiedCount, missingCount, unretiredCount, deleteCount]]
     sqlInsert(sqlDB, 'runs', columns, row)
 
@@ -1120,12 +1120,12 @@ def getScanList(sqlDB, db, variables, experiments, frequencies, quiet=False):
         variables (list): list of variables to scan (e.g., ['tas', 'ta', 'ts'])
         experiments (list): list of experiments to scan (e.g., ['amip', 'historical'])
         frequencies (list): list of frequencies to scan (e.g., ['mon', 'fx'])
-        quiet (optional, boolean): suppress display information if True (default False) 
+        quiet (optional, boolean): suppress display information if True (default False)
 
-    Returns: 
+    Returns:
         scanList[path] = db[path]
 
-    """    
+    """
 
     ## get keys with that have an associated xml file
     conn = sqlite3.connect(sqlDB) # connect to db
@@ -1146,15 +1146,15 @@ def getScanList(sqlDB, db, variables, experiments, frequencies, quiet=False):
     vs = '\'' + '\', \''.join(variables) + '\''
     es = '\'' + '\', \''.join(experiments) + '\''
     fs = '\'' + '\', \''.join(frequencies) + '\''
-    q = """SELECT keyid, path 
-           FROM paths 
-           WHERE xmlfile IS NULL 
-           AND error is NULL 
+    q = """SELECT keyid, path
+           FROM paths
+           WHERE xmlfile IS NULL
+           AND error is NULL
            AND variable IN (""" + vs + """)
            AND experiment IN (""" + es + """)
            AND frequency IN (""" + fs + """)
-           AND retired = 0 
-           AND ignored = 0 
+           AND retired = 0
+           AND ignored = 0
            AND (strftime(\'%s\', \'now\') - strftime(\'%s\', modified))/3600 > 24
            GROUP BY keyid;"""
     c.execute(q)
@@ -1190,23 +1190,23 @@ def writeStats(sqlDB):
         * cmip6 xml files
         * undefined vertical grid (cmip5)
         * undefined vertical grid (cmip6)
-    """      
-    # define queries    
+    """
+    # define queries
     queries = []
     queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'cmip5 directories\', (select count(*) as n from paths where mip_era = \'CMIP5\' and retired=0), datetime(\'now\'));")
     queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'cmip6 directories\', (select count(*) as n from paths where mip_era = \'CMIP6\' and retired=0), datetime(\'now\'));")
     queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'cmip5 xml files\', (select count(*) as n from paths where mip_era = \'CMIP5\' and xmlFile is NOT NULL and xmlFile != 'None' and retired=0), datetime(\'now\'));")
     queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'cmip6 xml files\', (select count(*) as n from paths where mip_era = \'CMIP6\' and xmlFile is NOT NULL and xmlFile != 'None' and retired=0), datetime(\'now\'));")
     queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'undefined vertical grid (cmip5)\', (select count(*) as n from paths where mip_era = \'CMIP5\' and gridLabel like \'%-%-x-%\' and retired=0), datetime(\'now\'));")
-    queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'undefined vertical grid (cmip6)\', (select count(*) as n from paths where mip_era = \'CMIP6\' and gridLabel like \'%-%-x-%\' and retired=0), datetime(\'now\'));")        
+    queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'undefined vertical grid (cmip6)\', (select count(*) as n from paths where mip_era = \'CMIP6\' and gridLabel like \'%-%-x-%\' and retired=0), datetime(\'now\'));")
     # write to database
     conn = sqlite3.connect(sqlDB)
     c = conn.cursor()
     # Create table
     for q in queries:
-        c.execute(q) 
+        c.execute(q)
     # Save (commit) the changes
-    conn.commit()    
+    conn.commit()
     conn.close()
 
 def scanChunk(scanList, numProcessors, outputDirectory):
@@ -1214,17 +1214,17 @@ def scanChunk(scanList, numProcessors, outputDirectory):
     results = scanChunk(scanList, numProcessors, outputDirectory)
 
     Function takes in a scanList (see getScanList) and will pass these directories
-    to scan to process path in parallel. 
+    to scan to process path in parallel.
 
-    Inputs: 
+    Inputs:
         scanList[path] = db[path] [dictionary of directories containing all directory metadata in database]
         numProcessors (int): number of processors to use
         outputDirectory: base directory of output xml tree
 
-    Returns: 
+    Returns:
         list of results from process_path in the form: results[:][inpath, fn, xmlwritetime, error]
 
-    """         
+    """
     # Determine number of processors
     if len(scanList) > numProcessors:
         nfscan = numProcessors
@@ -1241,39 +1241,39 @@ def writeScanResults(sqlDB, results):
     """
     writeScanResults(sqlDB, results)
 
-    Function takes results from scanChunk and uses them to update the database. 
+    Function takes results from scanChunk and uses them to update the database.
 
-    Inputs: 
+    Inputs:
         sqlDB: string filename
         results: results list from scanChunk
 
-    """             
+    """
     outputList = []
     for row in results:
-        outputList.append(list([row[1], row[2], row[3], row[0]]))   
+        outputList.append(list([row[1], row[2], row[3], row[0]]))
 
-    sqlUpdate(sqlDB, 'paths', ['xmlFile', 'xmlwritedatetime', 'error'], 'path', outputList) 
+    sqlUpdate(sqlDB, 'paths', ['xmlFile', 'xmlwritedatetime', 'error'], 'path', outputList)
 
 def resetXmlsByQuery(sqlDB, q):
     """
     resetXmlsByQuery(sqlDb, q)
 
-    Takes a sqlDB filename and a query, q, where the query returns the 
-    path and xmlFile. 
+    Takes a sqlDB filename and a query, q, where the query returns the
+    path and xmlFile.
 
     The function then deletes the xmlfile, xmlfilewritedatetime, and errors
     associated with the paths in this query. It then deletes any xmls referenced
     in the query results.  This is used if files need to be rescanned for some
-    reason. 
+    reason.
 
-    Inputs: 
+    Inputs:
         sqlDB: string filename
-        q: string query, e.g., "select path, xmlFile from paths where error is not null and xmlFile is not null;"    
+        q: string query, e.g., "select path, xmlFile from paths where error is not null and xmlFile is not null;"
 
-    """    
+    """
     conn = sqlite3.connect(sqlDB)
     c = conn.cursor()
-    c.execute(q) 
+    c.execute(q)
     a = c.fetchall()
     dfiles = []
     plist = []
@@ -1288,29 +1288,29 @@ def resetXmlsByQuery(sqlDB, q):
     for xfn in dfiles:
         if os.path.exists(xfn):
             os.remove(xfn)
-            deleteCount += 1    
+            deleteCount += 1
     print('Removed ' + str(deleteCount) + ' xml files')
 
 def removeDatabasePathsByQuery(sqlDB, q):
     """
     removeDatabasePathsByQuery(sqlDb, q)
 
-    Takes a sqlDB filename and a query, q, where the query returns a 
-    path and xmlFile. 
+    Takes a sqlDB filename and a query, q, where the query returns a
+    path and xmlFile.
 
-    The function deletes the rows in the database associated with the 
-    paths in this query. It then deletes any xmls referenced in the query results.  
+    The function deletes the rows in the database associated with the
+    paths in this query. It then deletes any xmls referenced in the query results.
     This is used when you want to completely regenerate this part of the database
-    and associated scans. 
+    and associated scans.
 
-    Inputs: 
+    Inputs:
         sqlDB: string filename
-        q: string query, e.g., "select path, xmlFile from paths where error is not null and xmlFile is not null;"        
+        q: string query, e.g., "select path, xmlFile from paths where error is not null and xmlFile is not null;"
 
-    """   
+    """
     conn = sqlite3.connect(sqlDB)
     c = conn.cursor()
-    c.execute(q) 
+    c.execute(q)
     a = c.fetchall()
     dfiles = []
     plist = []
@@ -1327,23 +1327,23 @@ def removeDatabasePathsByQuery(sqlDB, q):
     for xfn in dfiles:
         if os.path.exists(xfn):
             os.remove(xfn)
-            deleteCount += 1    
+            deleteCount += 1
     print('Removed ' + str(deleteCount) + ' xml files')
-    
+
 def runLock(status):
     """
     runLock(status)
 
-    Function creates a .lock file in the current directory to signify that 
+    Function creates a .lock file in the current directory to signify that
     xagg software is running. A lock can be place with status 'on', turned off
-    with 'off', or checked using 'check'. 
+    with 'off', or checked using 'check'.
 
-    Inputs: 
+    Inputs:
         status: 'on' | 'off' | 'check'
-    Returns: 
+    Returns:
         activeStatus: Status of runLock (True or False)
 
-    """       
+    """
     if status == 'on':
         now = datetime.datetime.now()
         fn = str(now.year) + '.' + str(now.month) + '.' + str(now.day) + '.' + str(now.hour) + ':' + str(now.minute) + ':' + str(now.second) + '.lock'

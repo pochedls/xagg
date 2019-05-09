@@ -7,19 +7,25 @@ cmipMetaFile = 'data/cmipMeta.pkl' # CMIP metadata pickle file
 chunkSize = 1000 # Chunk size (number of directories to scan in a given parallelization)
 
 # parent directories to check
-data_directories = ['/p/css03/cmip5_css01/data/cmip5/output1/', '/p/css03/cmip5_css01/data/cmip5/output2/',
-                    '/p/css03/cmip5_css02/data/cmip5/output1/', '/p/css03/cmip5_css02/data/cmip5/output2/', 
-                    '/p/css03/scratch/cmip5/', '/p/css03/scratch/published-latest/cmip5/',
-                    '/p/css03/scratch/published-latest/cmip5/cmip5_css01/scratch/cmip5/',
-                    '/p/css03/scratch/published-older/cmip5/', '/p/css03/scratch/should-publish/cmip5/',
-                    '/p/css03/scratch/unknown-dset/cmip5/', '/p/css03/scratch/unknown-status/cmip5/',
-                    '/p/css03/scratch/obsolete/cmip5/', '/p/css03/esgf_publish/cmip5/', '/p/user_pub/xclim/extension/']
+#data_directories = ['/p/css03/cmip5_css01/data/cmip5/output1/', '/p/css03/cmip5_css01/data/cmip5/output2/',
+#                    '/p/css03/cmip5_css02/data/cmip5/output1/', '/p/css03/cmip5_css02/data/cmip5/output2/',
+#                    '/p/css03/scratch/cmip5/', '/p/css03/scratch/published-latest/cmip5/',
+#                    '/p/css03/scratch/published-latest/cmip5/cmip5_css01/scratch/cmip5/',
+#                    '/p/css03/scratch/published-older/cmip5/', '/p/css03/scratch/should-publish/cmip5/',
+#                    '/p/css03/scratch/unknown-dset/cmip5/', '/p/css03/scratch/unknown-status/cmip5/',
+#                    '/p/css03/scratch/obsolete/cmip5/', '/p/css03/esgf_publish/cmip5/', '/p/user_pub/xclim/extension/']
+
+data_directories = ['/p/css03/scratch/cmip6/DAMIP/']
 
 # parent directories to check (split these up for parallelization)
-split_directories = ['/p/css03/esgf_publish/CMIP6/', '/p/css03/scratch/cmip6/']
+#split_directories = ['/p/css03/esgf_publish/CMIP6/', '/p/css03/scratch/cmip6/']
+
+split_directories = []
 
 # directories to ignore
-rm_directories = ['/p/css03/esgf_publish/CMIP6/input4MIPs/']
+#rm_directories = ['/p/css03/esgf_publish/CMIP6/input4MIPs/']
+
+rm_directories = []
 
 # variables to scan
 variables = ['snc','snd','snw','tpf','pflw', 'sic','sim','sit','snc','snd', 'agessc','cfc11','dissic','evs','ficeberg',\
@@ -30,17 +36,18 @@ variables = ['snc','snd','snw','tpf','pflw', 'sic','sim','sit','snc','snd', 'age
     'cl','clcalipso','cli','clisccp','clivi','clt','clw','clwvi','evspsbl','hfls','hfss','hur','hurs', 'hus','huss',\
     'mc','pr','prc','prsn','prw','ps','psl','rlds','rldscs','rlus','rluscs','rlut', 'rlutcs','rsds','rsdscs','rsdt',\
     'rsus','rsuscs','rsut','rsutcs','sbl','sci','sfcWind', 'ta','tas','tasmax','tasmin','tauu','tauv','ts','ua','uas',\
-    'va','vas','wap','zg', 'clhcalipso', 'clmcalipso', 'cllcalipso', 'cltcalipso', 'pfull']   
+    'va','vas','wap','zg', 'clhcalipso', 'clmcalipso', 'cllcalipso', 'cltcalipso', 'pfull']
 
 # frequencies to scan
 frequencies = ['fx','mon']
 
 # experiments to scan
-experiments = ['1pctCO2','abrupt4xCO2','amip','amip4K','amip4xCO2','amipFuture','historical','historicalExt', \
-        'historicalGHG','historicalMisc','historicalNat','past1000','piControl','rcp26','rcp45','rcp60',\
-        'rcp85', 'sstClim','sstClim4xCO2','abrupt-4xCO2', 'amip-4xCO2', 'amip-p4K', 'amip-m4K', 'hist-aer',\
-        'hist-GHG', 'hist-nat', 'ssp119', 'ssp126', 'ssp245', 'ssp370', 'ssp434', 'ssp460', 'ssp585'\
-        'amip-future4K', 'abrupt-solp4p', 'abrupt-solm4p', 'abrupt-2xCO2', 'abrupt-0p5xCO2', 'piClim-control',\
-        'piClim-anthro', 'piClim-ghg', 'piClim-aerO3', 'piClim-lu', 'piClim-4xCO2', 'piClim-histall',\
-        'piClim-histnat', 'piClim-histghg', 'piClim-histaerO3', 'amip-piForcing']
+#experiments = ['1pctCO2','abrupt4xCO2','amip','amip4K','amip4xCO2','amipFuture','historical','historicalExt', \
+#        'historicalGHG','historicalMisc','historicalNat','past1000','piControl','rcp26','rcp45','rcp60',\
+#        'rcp85', 'sstClim','sstClim4xCO2','abrupt-4xCO2', 'amip-4xCO2', 'amip-p4K', 'amip-m4K', 'hist-aer',\
+#        'hist-GHG', 'hist-nat', 'ssp119', 'ssp126', 'ssp245', 'ssp370', 'ssp434', 'ssp460', 'ssp585'\
+#        'amip-future4K', 'abrupt-solp4p', 'abrupt-solm4p', 'abrupt-2xCO2', 'abrupt-0p5xCO2', 'piClim-control',\
+#        'piClim-anthro', 'piClim-ghg', 'piClim-aerO3', 'piClim-lu', 'piClim-4xCO2', 'piClim-histall',\
+#        'piClim-histnat', 'piClim-histghg', 'piClim-histaerO3', 'amip-piForcing']
 
+experiments = ['historical']

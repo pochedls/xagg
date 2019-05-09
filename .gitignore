@@ -1,6 +1,7 @@
 ._*
 __pycache__/
 *.db
+*.lock
 backups/
 logs/
 data/
