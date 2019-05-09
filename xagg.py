@@ -86,7 +86,7 @@ else:
 
 	updatePaths = True
 	updateScans = True
-	outputDirectory = '/export/durack1/tmp/' ; # '/p/user_pub/xclim/'
+	outputDirectory = '/p/user_pub/xclim/'
 	numProcessors = 20
 	countStats = True
 	experimentIn = ''
@@ -198,9 +198,3 @@ fx.runLock('off') # remove run lock
 print('Finished run')
 print(time.ctime())
 print()
-
-
-
-
-
-

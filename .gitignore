@@ -1,7 +1,11 @@
 ._*
 __pycache__/
+*.7z
 *.db
 *.lock
+*.tar.bz2
+*.tar.gz
+log.txt
 backups/
 logs/
 data/
