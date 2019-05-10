@@ -25,14 +25,14 @@ Run software:
 ----------------
 * Execute test cases
 ```
-./xagg.py -f mon -v tas --outputDirectory /export/durack1/tmp > log.txt
+./xagg.py -f mon -v tas --outputDirectory ~/tmp > log.txt
 ```
 Or
 ```
-./xagg.py -f mon -v tas -e hist-CO2 --outputDirectory /export/durack1/tmp --updatePaths False > log.txt
+./xagg.py -f mon -v tas -e hist-CO2 --outputDirectory ~/tmp --updatePaths False > log.txt
 ```
 
 * Execute complete scan
 ```
-./xagg.py --outputDirectory /export/durack1/tmp > log.txt
+./xagg.py --outputDirectory ~/tmp > log.txt
 ```
