@@ -29,7 +29,7 @@ Run software:
 ```
 Or
 ```
-./xagg.py -f mon -v tas --experiment hist-CO2 --outputDirectory /export/durack1/tmp --updatePaths False > log.txt
+./xagg.py -f mon -v tas -e hist-CO2 --outputDirectory /export/durack1/tmp --updatePaths False > log.txt
 ```
 
 * Execute complete scan
