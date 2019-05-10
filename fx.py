@@ -617,8 +617,11 @@ def createLookupDictionary(paths, outfile='data/cmipMeta.pkl'):
     for i, p in enumerate(paths):
         if np.mod(i,10000) == 0:
             print(str(i) + '/' + str(len(paths)))
-        validPath, keyId, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version  = parsePath(p)
-        key = mip_era + '.' + cmipTable + '.' + variable
+        validPath, keyId, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version = parsePath(p)
+        if validPath:
+            key = '.'.join(mip_era, cmipTable, variable)
+        else:
+            continue
         if key in dictObj:
             continue
         else:
