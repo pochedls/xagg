@@ -49,14 +49,17 @@ variables = ['agessc','areacella','areacello','basin','cfc11','cl','clcalipso',
 frequencies = ['fx','mon']
 
 # experiments to scan
-experiments = ['1pctCO2','abrupt-0p5xCO2','abrupt-2xCO2','abrupt-4xCO2',
-               'abrupt-solm4p','abrupt-solp4p','abrupt4xCO2','amip','amip-4xCO2',
-               'amip-m4K','amip-p4K','amip-piForcing','amip4K','amip4xCO2',
-               'amipFuture','hist-GHG','hist-aer','hist-nat','historical',
-               'historicalExt','historicalGHG','historicalMisc','historicalNat',
-               'past1000','piClim-4xCO2','piClim-aerO3','piClim-anthro',
-               'piClim-control','piClim-ghg','piClim-histaerO3','piClim-histall',
-               'piClim-histghg','piClim-histnat','piClim-lu','piControl','rcp26',
-               'rcp45','rcp60','rcp85','ssp119','ssp126','ssp245','ssp370',
-               'ssp434','ssp460','ssp585amip-future4K','sstClim','sstClim4xCO2']
+experiments = ['1pctCO2', 'abrupt-0p5xCO2', 'abrupt-2xCO2', 'abrupt-4xCO2', 'abrupt-solm4p',
+               'abrupt-solp4p', 'abrupt4xCO2', 'amip', 'amip-4xCO2', 'amip-m4K', 'amip-p4K',
+               'amip-piForcing', 'amip4K', 'amip4xCO2', 'amipFuture', 'esm-hist', 'esm-hist-ext',
+               'esm-piControl', 'esm-piControl-spinup', 'hist-CO2', 'hist-GHG', 'hist-aer',
+               'hist-all-aer2', 'hist-all-nat2', 'hist-nat', 'hist-sol', 'hist-stratO3', 'hist-volc',
+               'historical', 'historical-ext', 'historicalExt', 'historicalGHG', 'historicalMisc',
+               'historicalNat', 'past1000', 'piClim-4xCO2', 'piClim-aerO3', 'piClim-anthro',
+               'piClim-control', 'piClim-ghg', 'piClim-histaerO3', 'piClim-histall',
+               'piClim-histghg', 'piClim-histnat', 'piClim-lu', 'piControl', 'piControl-spinup',
+               'rcp26', 'rcp45', 'rcp60', 'rcp85', 'ssp119', 'ssp126', 'ssp245', 'ssp370', 'ssp434',
+               'ssp460', 'ssp534-over', 'ssp585', 'ssp585amip-future4K', 'sstClim', 'sstClim4xCO2']
 #experiments = ['historical'] ; # Test
+
+
