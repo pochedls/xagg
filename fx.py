@@ -619,7 +619,7 @@ def createLookupDictionary(paths, outfile='data/cmipMeta.pkl'):
             print(str(i) + '/' + str(len(paths)))
         validPath, keyId, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version = parsePath(p)
         if validPath:
-            key = '.'.join(mip_era, cmipTable, variable)
+            key = '.'.join([mip_era, cmipTable, variable])
         else:
             continue
         if key in dictObj:

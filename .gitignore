@@ -5,6 +5,7 @@ __pycache__/
 *.lock
 *.tar.bz2
 *.tar.gz
+*log.txt
 log.txt
 backups/
 logs/
