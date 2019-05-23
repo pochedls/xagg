@@ -182,6 +182,9 @@ def createGridLabel(mip_era, realm, cmipTable, grid, dimensions):
 
     Returns:
             gridLabel
+
+    Based on: https://docs.google.com/document/d/1bUwK6G_fVZO53UjLZbQUOuBP47PsT8lqKKhL1pjRnKg/edit
+
     """
     # get realm id
     realmIdLookup = {'aerosol' : 'ae', 'atmos' : 'ap', 'atmosChem' : 'ac',

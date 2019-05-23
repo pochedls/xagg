@@ -55,7 +55,10 @@ for i in range(int(len(result)/2)):
 	files2 = glob.glob(p2 + '*.nc')
 	x = compareDirectories(files, files2)
 	if not x:
-		print(bad, p1, p2)
+		if p1.find('esgf_publish') > 0:
+			print(bad, p1, p2)
+		else:
+			print(bad, p2, p1)
 		pair1.append(p1)
 		pair2.append(p2)
 		bad += 1
