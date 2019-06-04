@@ -30,19 +30,20 @@ rm_directories = ['/p/css03/esgf_publish/CMIP6/input4MIPs/']
 #rm_directories = [] ; # Test
 
 # variables to scan
-variables = ['agessc','areacella','areacello','basin','cfc11','cl','clcalipso',
+variables = ['agessc','areacella','areacello','basin','cfc11','chl','cl','clcalipso',
              'clhcalipso','cli','clisccp','clivi','cllcalipso','clmcalipso','clt',
-             'cltcalipso','clw','clwvi','cropfrac','deptho','dissic','evs','evspsbl',
-             'evspsblsoi','evspsblveg','ficeberg','friver','gpp','hfds','hfls',
-             'hfls','hfss','hur','hurs','hus','huss','lai','mc','mfo','mlotst',
-             'mrfso','mrro','mrros','mrso','mrsofc','mrsos','omlmax','orog','pflw',
-             'pfull','ph','pr','prc','prsn','prw','ps','psl','rhopoto','rlds','rldscs',
-             'rlus','rluscs','rlut','rlutcs','rsds','rsdscs','rsdt','rsus','rsuscs',
-             'rsut','rsutcs','sbl','sci','sfcWind','sfriver','sftgif','sftlf','sftof',
-             'sic','sim','sit','snc','snd','snw','so','soga','sos','ta','tas','tasmax',
-             'tasmin','tauu','tauuo','tauv','tauvo','thetao','thetaoga','tos','tpf',
-             'tran','ts','tsl','ua','uas','uo','va','vas','vo','volcello','vsf',
-             'vsfcorr','vsfevap','vsfpr','vsfriver','wap','wfo','wfonocorr','zg',
+             'cltcalipso','clw','clwvi','co2','cropfrac','deptho','dissic','dpco2',
+             'epc100','epcalc100','evs','evspsbl','evspsblsoi','evspsblveg','fgco2',
+             'ficeberg','friver','gpp','hfds','hfls','hfls','hfss','hur','hurs','hus',
+             'huss','intpp','lai','mc','mfo','mlotst','mrfso','mrro','mrros','mrso',
+             'mrsofc','mrsos','no3','o2','omlmax','orog','pflw','pfull','ph','po4',
+             'pr','prc','prsn','prw','ps','psl','rhopoto','rlds','rldscs','rlus',
+             'rluscs','rlut','rlutcs','rsds','rsdscs','rsdt','rsus','rsuscs','rsut',
+             'rsutcs','sbl','sci','sfcWind','sfriver','sftgif','sftlf','sftof','si',
+             'sic','sim','sit','snc','snd','snw','so','soga','sos','spco2','ta','talk',
+             'tas','tasmax','tasmin','tauu','tauuo','tauv','tauvo','thetao','thetaoga',
+             'tos','tpf','tran','ts','tsl','ua','uas','uo','va','vas','vo','volcello',
+             'vsf','vsfcorr','vsfevap','vsfpr','vsfriver','wap','wfo','wfonocorr','zg',
              'zos','zostoga']
 
 # frequencies to scan
