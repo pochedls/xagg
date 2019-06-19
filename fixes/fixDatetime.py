@@ -10,13 +10,16 @@ I had written the sqlite time out incorrectly. This fixed that.
 @author: pochedls
 """
 
+import sys
+sys.path.append('/export_backup/pochedley1/code/xagg/') 
 import fx
 import sqlite3
 import datetime
 
+
 # cp db.xml db-backup.xml
 
-sqlDB = 'db.xml'
+sqlDB = '../xml.db'
 
 conn = sqlite3.connect(sqlDB)
 c = conn.cursor()
@@ -47,5 +50,5 @@ for row in data:
 
 columns = ['created', 'modified', 'accessed', 'xmlwritedatetime', 'retire_datetime', 'ignored_datetime']
 constraint = 'path'
-dataOut
+# dataOut
 fx.sqlUpdate(sqlDB, 'paths', columns, constraint, dataOut)

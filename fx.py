@@ -1297,6 +1297,47 @@ def resetXmlsByQuery(sqlDB, q):
             deleteCount += 1
     print('Removed ' + str(deleteCount) + ' xml files')
 
+def ignoreXmlsByQuery(sqlDB, q):
+    """
+    resetXmlsByQuery(sqlDb, q)
+
+    Takes a sqlDB filename and a query, q, where the query returns the
+    path and xmlFile.
+
+    The function then deletes the xmlfile, xmlfilewritedatetime, and errors
+    associated with the paths in this query. It sets ignored = 1. It then 
+    deletes any xmls referenced in the query results so they will not be 
+    scanned in the future. 
+
+    Inputs:
+        sqlDB: string filename
+        q: string query, e.g., "select path, xmlFile from paths where error is not null and xmlFile is not null;"
+
+    """
+    conn = sqlite3.connect(sqlDB)
+    c = conn.cursor()
+    c.execute(q)
+    a = c.fetchall()
+    dfiles = []
+    plist = []
+    for row in a:
+        ignoretime = toSQLtime(datetime.datetime.now())
+        plist.append([None, None, None,1,ignoretime,row[0]])
+        fn = row[1]
+        if fn:
+            dfiles.append(fn)
+    conn.close()
+    n = len(dfiles)
+    sqlUpdate(sqlDB, 'paths', ['xmlFile', 'xmlwritedatetime', 'error', 'ignored','ignored_datetime'], 'path', plist)
+    print('Reset ' + str(len(plist)) + ' records in database')
+    deleteCount = 0
+    for xfn in dfiles:
+        print(xfn)
+        if os.path.exists(xfn):
+            os.remove(xfn)
+            deleteCount += 1
+    print('Removed ' + str(deleteCount) + ' xml files')
+
 def removeDatabasePathsByQuery(sqlDB, q):
     """
     removeDatabasePathsByQuery(sqlDb, q)

@@ -47,7 +47,7 @@ variables = ['agessc','areacella','areacello','basin','cfc11','chl','cl','clcali
              'zos','zostoga']
 
 # frequencies to scan
-frequencies = ['fx','mon']
+frequencies = ['fx','mon','yr']
 
 # experiments to scan
 experiments = ['1pctCO2', 'abrupt-0p5xCO2', 'abrupt-2xCO2', 'abrupt-4xCO2', 'abrupt-solm4p',
