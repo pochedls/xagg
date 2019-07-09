@@ -10,7 +10,7 @@ conda activate cdat81
 NOW=$(date +"%F")
 LOGFILE="pr_log-$NOW.log"
 
-./xagg.py -p FALSE -f day -v pr > $LOGFILE
+./xagg.py -p FALSE -f day -v pr,rlut,ua,hus,hur,wap,ta,zg,va,ps,rsdt,rsut,rsds,rsus,rlds,rlus,hfls,hfss > $LOGFILE
 
 ## migrate database
 cd tools/
