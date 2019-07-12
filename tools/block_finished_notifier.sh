@@ -6,7 +6,7 @@
 # https://superuser.com/questions/181517/how-to-execute-a-command-whenever-a-file-changes
 
 ### Get file
-fn=$(ls ../*.log | sort -V | tail -n 1)
+fn=$(ls ../xml.db | sort -V | tail -n 1)
 
 ### Set initial time of file
 LTIME=`stat -c %Z $fn`
