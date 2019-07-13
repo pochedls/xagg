@@ -395,7 +395,8 @@ def scantree(path):
     """
 
     for entry in scandir.walk(path):
-        if ((entry[1] == []) & (entry[2] != [])):
+        # yield directory if there are any files in it
+        if (entry[2] != []):
             yield entry[0] + '/'
 
 def toSQLtime(time):
