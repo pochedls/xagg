@@ -1004,8 +1004,7 @@ def updateDatabaseHoldings(sqlDB, diskPaths, diskStat, dbPaths, db, invalidPaths
             try:
                 validPath, keyId, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version = parsePath(p, dictObj)
             except:
-                print(p)
-                stop
+                ValueError('Bad path:' + p)
             if validPath:
                 litem = [p, keyId, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version, diskStat[p]['ctime'], diskStat[p]['mtime'], diskStat[p]['atime'], 0, 0]
                 newList.append(litem)
@@ -1312,7 +1311,7 @@ def ignoreXmlsByQuery(sqlDB, q):
 
     Inputs:
         sqlDB: string filename
-        q: string query, e.g., "select path, xmlFile from paths where error is not null and xmlFile is not null;"
+        q: string query, e.g., "select path, xmlFile from paths where path = '/a/b/c/';"
 
     """
     conn = sqlite3.connect(sqlDB)

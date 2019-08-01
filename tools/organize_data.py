@@ -17,6 +17,8 @@ Only works for CMIP5 right now.
 import glob
 import cdms2
 import os
+import sys
+sys.path.append('..')
 import fx
 
 base = '/p/user_pub/xclim/extension/'
