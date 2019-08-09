@@ -18,7 +18,8 @@ data_directories = ['/p/css03/cmip5_css01/data/cmip5/output1/',
                     '/p/css03/scratch/should-publish/cmip5/',
                     '/p/css03/scratch/unknown-dset/cmip5/',
                     '/p/css03/scratch/unknown-status/cmip5/',
-                    '/p/user_pub/xclim/extension/']
+                    '/p/user_pub/xclim/extension/',
+                    '/p/user_pub/work/CMIP6/']
 #data_directories = ['/p/css03/scratch/cmip6/DAMIP/'] ; # Test
 
 # parent directories to scan (split these up for parallelization)
