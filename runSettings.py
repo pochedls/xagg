@@ -57,10 +57,11 @@ experiments = ['1pctCO2', 'abrupt-0p5xCO2', 'abrupt-2xCO2', 'abrupt-4xCO2', 'abr
                'esm-piControl', 'esm-piControl-spinup', 'hist-CO2', 'hist-GHG', 'hist-aer',
                'hist-all-aer2', 'hist-all-nat2', 'hist-nat', 'hist-sol', 'hist-stratO3', 'hist-volc',
                'historical', 'historical-ext', 'historicalExt', 'historicalGHG', 'historicalMisc',
-               'historicalNat', 'past1000', 'piClim-4xCO2', 'piClim-aerO3', 'piClim-anthro',
-               'piClim-control', 'piClim-ghg', 'piClim-histaerO3', 'piClim-histall',
-               'piClim-histghg', 'piClim-histnat', 'piClim-lu', 'piControl', 'piControl-spinup',
-               'rcp26', 'rcp45', 'rcp60', 'rcp85', 'ssp119', 'ssp126', 'ssp245', 'ssp370', 'ssp434',
+               'historicalNat', 'past1000', 'piClim-4xCO2', 'piClim-aer','piClim-aerO3', 
+               'piClim-anthro', 'piClim-control', 'piClim-ghg', 'piClim-histaerO3', 'piClim-histall',
+               'piClim-histghg', 'piClim-histnat', 'piClim-lu', 'piClim-spAer-aer', 
+               'piClim-spAer-anthro', 'piClim-histaer', 'piControl', 'piControl-spinup', 'rcp26', 
+               'rcp45', 'rcp60', 'rcp85', 'ssp119', 'ssp126', 'ssp245', 'ssp370', 'ssp434',
                'ssp460', 'ssp534-over', 'ssp585', 'ssp585amip-future4K', 'sstClim', 'sstClim4xCO2']
 #experiments = ['historical'] ; # Test
 
