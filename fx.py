@@ -1161,7 +1161,7 @@ def getScanList(sqlDB, db, variables, experiments, frequencies, quiet=False):
            AND frequency IN (""" + fs + """)
            AND retired = 0
            AND ignored = 0
-           AND (strftime(\'%s\', \'now\') - strftime(\'%s\', modified))/3600 > 24
+           AND (strftime(\'%s\', \'now\') - strftime(\'%s\', modified))/3600 > 3
            GROUP BY keyid;"""
     c.execute(q)
     result = c.fetchall()
