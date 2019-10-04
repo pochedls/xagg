@@ -20,14 +20,31 @@ import os
 import sys
 sys.path.append('..')
 import fx
+import scipy.io as sio
 
 base = '/p/user_pub/xclim/extension/'
 mip_era = 'CMIP6'
 testMode = False
+deleteRepeats = True
+overCopyRepeats = False
+
+# load existing files into list
+fa = sio.loadmat('fileArchive.mat')['fileArchive']
+fileArchive = [fn.replace(' ','') for fn in fa]
 
 files = glob.glob(base + 'wget/' + '*.nc')
 
 for fn in files:
+	if fn.split('/')[-1] in fileArchive:
+		print(fn + ' already archived...')
+		if deleteRepeats:
+			os.remove(fn)
+		if overCopyRepeats:
+			pass
+		else:
+			continue;
+	else:
+		fileArchive.append(fn.split('/')[-1])
 	version = '9'
 	variable = fn.split('/')[-1].split('_')[0]
 	rip = fn.split('/')[-1].split('_')[4]
@@ -57,4 +74,6 @@ for fn in files:
 	else:
 		fx.ensure_dir(dirOut)
 		os.rename(fn, dirOut + fn.split('/')[-1])
-	
+
+if not testMode:
+	sio.savemat('fileArchive.mat', {'fileArchive' : fileArchive})	

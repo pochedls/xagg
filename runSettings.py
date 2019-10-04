@@ -41,11 +41,11 @@ variables = ['agessc','areacella','areacello','basin','cfc11','chl','cl','clcali
              'ph','po4','pr','prc','prsn','prw','ps','psl','rhopoto','rlds','rldscs',
              'rlus','rluscs','rlut','rlutcs','rsds','rsdscs','rsdt','rsus','rsuscs',
              'rsut','rsutcs','sbl','sci','sfcWind','sfriver','sftgif','sftlf','sftof','si',
-             'sic','sim','sit','snc','snd','snw','so','soga','sos','spco2','ta','talk',
-             'tas','tasmax','tasmin','tauu','tauuo','tauv','tauvo','thetao','thetaoga',
-             'tos','tpf','tran','ts','tsl','ua','uas','uo','va','vas','vo','volcello',
-             'vsf','vsfcorr','vsfevap','vsfpr','vsfriver','wap','wfo','wfonocorr','zg',
-             'zos','zostoga']
+             'sic', 'siconc','sim','sit','snc','snd','snw','so','soga','sos','spco2','ta',
+             'talk', 'tas','tasmax','tasmin','tauu','tauuo','tauv','tauvo','thetao',
+             'thetaoga', 'tos','tpf','tran','ts','tsl','ua','uas','uo','va','vas','vo',
+             'volcello', 'vsf','vsfcorr','vsfevap','vsfpr','vsfriver','wap','wfo',
+             'wfonocorr','zg', 'zos','zostoga']
 
 # frequencies to scan
 frequencies = ['fx','mon','yr']
