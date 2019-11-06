@@ -4,7 +4,7 @@
 
 ## activate environment
 . /export_backup/pochedley1/bin/anaconda3/etc/profile.d/conda.sh
-conda activate cdat81
+conda activate xagg
 
 ## create log file name
 NOW=$(date +"%F")
