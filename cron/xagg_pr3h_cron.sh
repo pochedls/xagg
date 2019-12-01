@@ -10,7 +10,7 @@ conda activate xagg
 NOW=$(date +"%F")
 LOGFILE="pr3h_log-$NOW.log"
 
-./xagg.py -p FALSE -f day -v pr -e amip,historical > $LOGFILE
+./xagg.py -p FALSE -f 3hr -v pr -e amip,historical > $LOGFILE
 
 ## migrate database
 cd tools/
