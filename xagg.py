@@ -163,6 +163,9 @@ if updatePaths:
     print()
     fx.updateDatabaseHoldings(sqlDB, diskPaths, diskStat, dbPaths, db,
                               invalidPaths, retiredPaths)
+    del diskStat, diskPaths
+
+del db, invalidPaths, retiredPaths, dbPaths
 
 # get paths to scan
 if updateScans:
@@ -171,6 +174,7 @@ if updateScans:
     print()
     db = fx.getDBPaths(sqlDB)  # get updated database
     scanList = fx.getScanList(sqlDB, db, variables, experiments, frequencies)
+    del db
 
     print('Start scans')
     print(time.ctime())
