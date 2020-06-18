@@ -1305,9 +1305,9 @@ def ignoreXmlsByQuery(sqlDB, q):
     path and xmlFile.
 
     The function then deletes the xmlfile, xmlfilewritedatetime, and errors
-    associated with the paths in this query. It sets ignored = 1. It then 
-    deletes any xmls referenced in the query results so they will not be 
-    scanned in the future. 
+    associated with the paths in this query. It sets ignored = 1. It then
+    deletes any xmls referenced in the query results so they will not be
+    scanned in the future.
 
     Inputs:
         sqlDB: string filename
