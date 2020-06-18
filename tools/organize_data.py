@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
+
 Stephen Po-Chedley 9 May 2019
 
 Script (in development) to take data in an "extension" directory
@@ -10,6 +11,7 @@ can be scanned using xagg.
 
 PJD 15 May 2020 - Update to extract mip_era from file global atts
 PJD 17 Jun 2020 - Updated to use local fileArchive.mat
+PJD 18 Jun 2020 - Updated to preserve file metadata (creation date)
 
 @author: pochedls
 """
@@ -18,14 +20,12 @@ import os
 import sys
 import glob
 import scipy.io as sio
-import fx
 import cdms2
-
 sys.path.append('..')
-
+import fx
 
 base = '/p/user_pub/xclim/extension/'
-testMode = False
+testMode = True
 deleteRepeats = True
 overCopyRepeats = False
 
@@ -46,7 +46,7 @@ for fn in files:
             continue
     else:
         fileArchive.append(fn.split('/')[-1])
-    version = '9'
+    version = '9' ; # It is possible to generate from a file timestamp
     variable = fn.split('/')[-1].split('_')[0]
     rip = fn.split('/')[-1].split('_')[4]
     output = 'output0'
@@ -74,13 +74,18 @@ for fn in files:
         fs = [base, mip_era, output, institute, model, experiment, frequency,
               realm, table, rip, version, variable]
 
-    dirOut = '/'.join(fs) + '/'
+    dirOut = os.path.join(fs) + '/'
     f.close()
     if testMode:
         print(fn, dirOut + fn.split('/')[-1])
     else:
         fx.ensure_dir(dirOut)
-        os.rename(fn, dirOut + fn.split('/')[-1])
+        # Copy file stats
+        fileStat = os.stat(fn)
+        fo = dirOut + fn.split('/')[-1]
+        os.rename(fn, fo)
+        # Apply stats back to new file
+        os.utime(fo, (fileStat.st_atime, fileStat.st_mtime))
 
 if not testMode:
     sio.savemat('fileArchive.mat', {'fileArchive': fileArchive})
