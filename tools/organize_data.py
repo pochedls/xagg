@@ -12,7 +12,9 @@ can be scanned using xagg.
 PJD 15 May 2020 - Update to extract mip_era from file global atts
 PJD 17 Jun 2020 - Updated to use local fileArchive.mat
 PJD 18 Jun 2020 - Updated to preserve file metadata (creation date)
-PJD 18 Jun 2020 - Updated all dirs to xclimw group, chmod 774 (rwxrwxr--)
+PJD 18 Jun 2020 - Updated all xclim subdirs to xclimw group,
+                  chmod 774 (rwxrwxr--)
+                  Dirs updated: CMIP6, CMIP5, extension, persist
 
 @author: pochedls
 """
