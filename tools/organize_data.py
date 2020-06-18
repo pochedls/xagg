@@ -32,8 +32,11 @@ testMode = False
 deleteRepeats = True
 overCopyRepeats = False
 
+# Archive file
+archiveFile = os.path.join(base, 'fileArchive.mat')
+
 # load existing files into list
-fa = sio.loadmat(os.path.join(base, 'fileArchive.mat'))['fileArchive']
+fa = sio.loadmat(archiveFile)['fileArchive']
 fileArchive = [fn.replace(' ', '') for fn in fa]
 
 files = glob.glob(base + 'wget/' + '*.nc')
@@ -77,7 +80,8 @@ for fn in files:
         fs = [base, mip_era, output, institute, model, experiment, frequency,
               realm, table, rip, version, variable]
 
-    dirOut = os.path.join('', *fs)  # Splat operator deals with list type
+    dirOut = os.path.join(*fs, '')  # Splat operator deals with list type
+    print(dirOut)
     f.close()
 
     if testMode:
@@ -95,4 +99,4 @@ for fn in files:
         print('file stat fo:', fo, fileStat.st_atime, fileStat.st_ctime, fileStat.st_mtime)
 
 if not testMode:
-    sio.savemat('fileArchive.mat', {'fileArchive': fileArchive})
+    sio.savemat(archiveFile, {'fileArchive': fileArchive})
