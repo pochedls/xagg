@@ -74,7 +74,10 @@ for fn in files:
         fs = [base, mip_era, output, institute, model, experiment, frequency,
               realm, table, rip, version, variable]
 
-    dirOut = os.path.join(fs) + '/'
+    print('fs:',fs)
+    dirOut = os.path.join(*fs)
+    print('dirOut:',dirOut)
+    #+ '/'
     f.close()
     if testMode:
         print(fn, dirOut + fn.split('/')[-1])
@@ -82,10 +85,13 @@ for fn in files:
         fx.ensure_dir(dirOut)
         # Copy file stats
         fileStat = os.stat(fn)
+        print('file stat fn:',fn,fileStat.st_atime,fileStat.st_ctime,fileStat.st_mtime)
         fo = dirOut + fn.split('/')[-1]
         os.rename(fn, fo)
         # Apply stats back to new file
         os.utime(fo, (fileStat.st_atime, fileStat.st_mtime))
+        fileStat = os.stat(fo)
+        print('file stat fo:',fo,fileStat.st_atime,fileStat.st_ctime,fileStat.st_mtime)
 
 if not testMode:
     sio.savemat('fileArchive.mat', {'fileArchive': fileArchive})
