@@ -14,12 +14,13 @@ PJD 17 Jun 2020 - Updated to use local fileArchive.mat
 @author: pochedls
 """
 
-import fx
-import glob
-import cdms2
 import os
 import sys
+import glob
 import scipy.io as sio
+import fx
+import cdms2
+
 sys.path.append('..')
 
 
