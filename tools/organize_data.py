@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 """
-
 Stephen Po-Chedley 9 May 2019
 
 Script (in development) to take data in an "extension" directory
@@ -10,6 +9,7 @@ and organize it adhering to normal CMIP path conventions so that it
 can be scanned using xagg.
 
 PJD 15 May 2020 - Update to extract mip_era from file global atts
+PJD 17 Jun 2020 - Updated to use local fileArchive.mat
 
 @author: pochedls
 """
@@ -29,7 +29,7 @@ deleteRepeats = True
 overCopyRepeats = False
 
 # load existing files into list
-fa = sio.loadmat('fileArchive.mat')['fileArchive']
+fa = sio.loadmat(os.path.join(base, 'fileArchive.mat'))['fileArchive']
 fileArchive = [fn.replace(' ', '') for fn in fa]
 
 files = glob.glob(base + 'wget/' + '*.nc')
