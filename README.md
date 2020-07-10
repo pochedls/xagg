@@ -4,14 +4,14 @@ XML Aggregator for CMIPx data
 
 Dependencies:
 ```
-python3, joblib, scandir, cdscan (part of cdms2)
+python3, scipy, joblib, scandir, cdscan (part of cdms2)
 ```
 
 Setup:
 ----------------
 * Create anaconda environment with dependencies (creates a Py3 environment by default)
 ```
-conda create -n xagg -c conda-forge -c cdat cdms2 joblib scandir
+conda create -n xagg -c conda-forge -c cdat cdms2 joblib scandir scipy
 ```
 
 * Download local tables database
