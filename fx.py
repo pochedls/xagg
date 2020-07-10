@@ -1004,6 +1004,7 @@ def updateDatabaseHoldings(sqlDB, diskPaths, diskStat, dbPaths, db, invalidPaths
             try:
                 validPath, keyId, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version = parsePath(p, dictObj)
             except:
+                validPath = False
                 ValueError('Bad path:' + p)
             if validPath:
                 litem = [p, keyId, mip_era, activity, institute, model, experiment, member, cmipTable, realm, frequency, variable, grid, gridLabel, version, diskStat[p]['ctime'], diskStat[p]['mtime'], diskStat[p]['atime'], 0, 0]
