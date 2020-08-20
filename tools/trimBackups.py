@@ -3,9 +3,9 @@
 
 """
 
-Stephen Po-Chedley 19 August 202
+Stephen Po-Chedley 19 August 2020
 
-Helper script for trimming log output.
+Helper script for trimming backups.
 
 @author: pochedls
 """
