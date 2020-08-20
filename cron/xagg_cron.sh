@@ -9,7 +9,8 @@ exec &> $LOGFILE
 
 ## activate environment
 . /export_backup/pochedley1/bin/anaconda3/etc/profile.d/conda.sh
-conda activate xagg
+# conda activate xagg
+conda activate cdat821
 
 ./xagg.py # > $LOGFILE
 

@@ -1293,6 +1293,8 @@ def resetXmlsByQuery(sqlDB, q):
     print('Reset ' + str(len(plist)) + ' records in database')
     deleteCount = 0
     for xfn in dfiles:
+        if xfn is None:
+            continue
         if os.path.exists(xfn):
             os.remove(xfn)
             deleteCount += 1
