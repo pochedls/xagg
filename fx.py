@@ -1206,6 +1206,7 @@ def writeStats(sqlDB):
     queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'cmip6 xml files\', (select count(*) as n from paths where mip_era = \'CMIP6\' and xmlFile is NOT NULL and xmlFile != 'None' and retired=0), datetime(\'now\'));")
     queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'undefined vertical grid (cmip5)\', (select count(*) as n from paths where mip_era = \'CMIP5\' and gridLabel like \'%-%-x-%\' and retired=0), datetime(\'now\'));")
     queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'undefined vertical grid (cmip6)\', (select count(*) as n from paths where mip_era = \'CMIP6\' and gridLabel like \'%-%-x-%\' and retired=0), datetime(\'now\'));")
+    queries.append("INSERT INTO stats (indicator, value, datetime) VALUES (\'retracted\', (select count(*) as n from paths where error = \'retracted\'), datetime(\'now\'));")
     # write to database
     conn = sqlite3.connect(sqlDB)
     c = conn.cursor()

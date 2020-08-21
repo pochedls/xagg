@@ -68,6 +68,7 @@ experiments = [
                 'abrupt4xCO2',
                 'amip',
                 'amip-4xCO2',
+                'amip-future4K',
                 'amip-m4K',
                 'amip-p4K',
                 'amip-piForcing',
