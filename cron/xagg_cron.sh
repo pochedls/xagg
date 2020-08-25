@@ -12,6 +12,10 @@ exec &> $LOGFILE
 # conda activate xagg
 conda activate cdat821
 
+# run retract
+./retract.py
+
+# run xagg
 ./xagg.py # > $LOGFILE
 
 ## migrate database

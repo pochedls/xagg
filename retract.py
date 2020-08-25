@@ -5,19 +5,20 @@
 
 Stephen Po-Chedley 19 August 2020
 
-Dev script to remove xmls linked to retracted data.
+Script to remove xmls linked to retracted data.
 
 @author: pochedls
 """
 
 import os
 import sqlite3
-import sys
-sys.path.append('..')
 import fx
 import datetime
 import time
+import glob
 
+
+# define convenience function
 def execQuery(sqlDb, q):
     conn = sqlite3.connect(sqlDb)
     c = conn.cursor()
@@ -27,10 +28,18 @@ def execQuery(sqlDb, q):
     conn.close()
     return names, x
 
+
 # specify databases
 sqlDb = '/p/css03/painter/db/sdt6.db'
 xaggDb = 'xml.db'
 cmipMeta = 'data/cmipMeta.pkl'
+retractDir = '/p/user_pub/xclim/retracted/'
+testDir = '/p/user_pub/xclim/CMIP6/CMIP/amip/atmos/mon/tas/'
+
+# check if xagg is mounted
+files = glob.glob(testDir + '*.xml')
+if len(files) < 100:
+    raise ValueError('It appears a disk is not mounted.')
 
 # get retracted files
 print('Get retracted files')
@@ -52,17 +61,18 @@ for row in allKeys:
     xmlfile = row[2]
     if key not in xaggKeys.keys():
         xaggKeys[key] = {}
-        xaggKeys[key]['path'] = [path]
-        xaggKeys[key]['xmlfile'] = xmlfile
+        xaggKeys[key][path] = xmlfile
     else:
-        xaggKeys[key]['path'] = xaggKeys[key]['path'] + [path]
+        xaggKeys[key][path] = xmlfile
 
 # get paths that need to be retracted
 print('Get paths to ignore')
 print(time.ctime())
 print()
 retractList = []
-deleteList = []
+deleteList = {}
+datalist = []
+datalistXml = []
 for i, row in enumerate(retractedSet):
     # get metadata
     meta = row[1].split('.')
@@ -93,35 +103,40 @@ for i, row in enumerate(retractedSet):
            realm, frequency, variableId, grid, gridLabel, version]
     key = '.'.join(key)
     if key in xaggKeys.keys():
-        retractList = retractList + xaggKeys[key]['path']
-        fn = xaggKeys[key]['xmlfile']
-        if fn is not None:
-            deleteList = deleteList + [fn]
+        for rpath in xaggKeys[key].keys():
+            fn = xaggKeys[key][rpath]
+            ignoretime = fx.toSQLtime(datetime.datetime.now())
+            if fn is None:
+                datalist.append([None, None, 'retracted', 1, ignoretime, rpath])
+            else:
+                xfnn = retractDir + fn.split('/')[-1]
+                deleteList[fn] = xfnn
+                datalistXml.append([xfnn, 'retracted', 1, ignoretime, rpath])
+
 
 print('Retract files')
 print(time.ctime())
 print()
-datalist = []
-for rpath in retractList:
-    ignoretime = fx.toSQLtime(datetime.datetime.now())
-    datalist.append([None, None, 'retracted', 1, ignoretime, rpath])
 
+# Ignore paths without an xml file
 columns = ['xmlFile', 'xmlwritedatetime', 'error', 'ignored', 'ignored_datetime']
 fx.sqlUpdate(xaggDb, 'paths', columns, 'path', datalist)
 
-print('Delete files')
+# Update paths with an xml file
+columnsXml = ['xmlFile', 'error', 'ignored', 'ignored_datetime']
+fx.sqlUpdate(xaggDb, 'paths', columnsXml, 'path', datalistXml)
+
+print('Archive files')
 print(time.ctime())
 print()
 deleteCount = 0
-for xfn in deleteList:
-    if xfn is None:
-        continue
-    if os.path.exists(xfn):
-        os.remove(xfn)
+for fn in deleteList:
+    if os.path.exists(fn):
+        xfnn = deleteList[fn]
+        os.rename(fn, xfnn)
         deleteCount += 1
 
-print('Ignored ' + str(len(retractList)) + ' paths')
-print('Removed ' + str(deleteCount) + ' xml files')
+print('Ignored ' + str(len(datalist)) + ' paths')
+print('Archived ' + str(deleteCount) + ' xml files')
 print(time.ctime())
 print()
-
