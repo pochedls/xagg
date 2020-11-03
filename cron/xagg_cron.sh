@@ -22,6 +22,7 @@ conda activate cdat821
 cd tools/
 ./migrateDatabase.sh
 cd ..
+cp xml.db /p/user_pub/xclim/persist/xml.db
 
 ## Cleanup
 mv $LOGFILE logs/
