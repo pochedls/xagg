@@ -55,7 +55,7 @@ variables = ['agessc', 'areacella', 'areacello', 'basin', 'cfc11', 'chl', 'cl',
              'zostoga']
 
 # frequencies to scan
-frequencies = ['fx','mon','yr']
+frequencies = ['fx', 'mon', 'yr']
 
 # experiments to scan
 experiments = [
@@ -75,6 +75,12 @@ experiments = [
                 'amip4K',
                 'amip4xCO2',
                 'amipFuture',
+                'aquaControl',
+                'aqua-control',
+                'aqua4K',
+                'aqua-p4K'
+                'aqua4xCO2',
+                'aqua-4xCO2',
                 'esm-hist',
                 'esm-hist-ext',
                 'esm-piControl',

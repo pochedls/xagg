@@ -18,7 +18,7 @@ import os
 
 # directory
 ldir = '/export_backup/pochedley1/code/xagg/backups/'
-deleteFiles = True
+deleteFiles = False
 
 # get files to process
 files = glob.glob(ldir + '/*.db.gz')
