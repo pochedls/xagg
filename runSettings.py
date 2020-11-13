@@ -78,7 +78,7 @@ experiments = [
                 'aquaControl',
                 'aqua-control',
                 'aqua4K',
-                'aqua-p4K'
+                'aqua-p4K',
                 'aqua4xCO2',
                 'aqua-4xCO2',
                 'esm-hist',
