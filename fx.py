@@ -1286,11 +1286,11 @@ def resetXmlsByQuery(sqlDB, q):
     dfiles = []
     plist = []
     for row in a:
-        plist.append([None, None, None, row[0]])
+        plist.append([None, None, None, None, None, row[0]])
         dfiles.append(row[1])
     conn.close()
     n = len(dfiles)
-    sqlUpdate(sqlDB, 'paths', ['xmlFile', 'xmlwritedatetime', 'error'], 'path', plist)
+    sqlUpdate(sqlDB, 'paths', ['xmlFile', 'xmlwritedatetime', 'error', 'ignored', 'ignored_datetime'], 'path', plist)
     print('Reset ' + str(len(plist)) + ' records in database')
     deleteCount = 0
     for xfn in dfiles:
@@ -1303,7 +1303,7 @@ def resetXmlsByQuery(sqlDB, q):
 
 def ignoreXmlsByQuery(sqlDB, q):
     """
-    resetXmlsByQuery(sqlDb, q)
+    ignoreXmlsByQuery(sqlDb, q)
 
     Takes a sqlDB filename and a query, q, where the query returns the
     path and xmlFile.
@@ -1332,7 +1332,7 @@ def ignoreXmlsByQuery(sqlDB, q):
             dfiles.append(fn)
     conn.close()
     n = len(dfiles)
-    sqlUpdate(sqlDB, 'paths', ['xmlFile', 'xmlwritedatetime', 'error', 'ignored','ignored_datetime'], 'path', plist)
+    sqlUpdate(sqlDB, 'paths', ['xmlFile', 'xmlwritedatetime', 'error', 'ignored', 'ignored_datetime'], 'path', plist)
     print('Reset ' + str(len(plist)) + ' records in database')
     deleteCount = 0
     for xfn in dfiles:
