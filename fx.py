@@ -1134,8 +1134,8 @@ def getScanList(sqlDB, db, variables, experiments, frequencies, quiet=False):
 
     """
 
-    ## get keys with that have an associated xml file
-    conn = sqlite3.connect(sqlDB) # connect to db
+    # get keys with that have an associated xml file
+    conn = sqlite3.connect(sqlDB)  # connect to db
     c = conn.cursor()
     # get keys for which we have an xml file
     c.execute('select keyid from paths where xmlFile is not NULL;')
@@ -1286,7 +1286,7 @@ def resetXmlsByQuery(sqlDB, q):
     dfiles = []
     plist = []
     for row in a:
-        plist.append([None, None, None, None, None, row[0]])
+        plist.append([None, None, None, 0, None, row[0]])
         dfiles.append(row[1])
     conn.close()
     n = len(dfiles)

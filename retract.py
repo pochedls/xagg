@@ -41,6 +41,13 @@ files = glob.glob(testDir + '*.xml')
 if len(files) < 100:
     raise ValueError('It appears a disk is not mounted.')
 
+# Ensure there isn't a concurrent run or unresolved error
+# If there is no lock, place a lock and continue
+if fx.runLock('check'):
+    raise ValueError('Lock is on. xagg is running or encountered an error.')
+else:
+    fx.runLock('on')
+
 # get retracted files
 print('Get retracted files')
 print(time.ctime())
@@ -140,3 +147,5 @@ print('Ignored ' + str(len(datalist)) + ' paths')
 print('Archived ' + str(deleteCount) + ' xml files')
 print(time.ctime())
 print()
+
+fx.runLock('off')  # remove run lock
