@@ -11,7 +11,7 @@ Setup:
 ----------------
 * Create anaconda environment with dependencies (creates a Py3 environment by default)
 ```
-conda create -y -n cdat -c conda-forge -c cdat/label/v8.2.1 "libnetcdf=*=mpi_openmpi_*" "mesalib=18.3.1" "python=3.7" cdat cdms2 joblib scandir scipy
+conda create -y -n xagg -c conda-forge -c cdat/label/v8.2.1 "libnetcdf=*=mpi_openmpi_*" "mesalib=18.3.1" "python=3.7" cdat cdms2 joblib scandir scipy
 ```
 
 * Download local tables database
