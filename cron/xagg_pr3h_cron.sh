@@ -3,9 +3,8 @@
 # example cron job for daily precip files
 
 ## activate environment
-. /export_backup/pochedley1/bin/anaconda3/etc/profile.d/conda.sh
-# conda activate xagg
-conda activate cdat821
+. /home/pochedley1/bin/miniconda3/etc/profile.d/conda.sh
+conda activate xagg
 
 ## create log file name
 NOW=$(date +"%F")

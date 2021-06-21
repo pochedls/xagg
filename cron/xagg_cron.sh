@@ -8,9 +8,8 @@ LOGFILE="log-$NOW.log"
 exec &> $LOGFILE
 
 ## activate environment
-. /export_backup/pochedley1/bin/anaconda3/etc/profile.d/conda.sh
-# conda activate xagg
-conda activate cdat821
+. /home/pochedley1/bin/miniconda3/etc/profile.d/conda.sh
+conda activate xagg
 
 # run retract
 ./retract.py
