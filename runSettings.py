@@ -25,11 +25,14 @@ data_directories = ['/p/css03/cmip5_css01/data/cmip5/output1/',
 # parent directories to scan (split these up for parallelization)
 split_directories = ['/p/css03/esgf_publish/CMIP6/',
                      '/p/css03/scratch/cmip6/',
-                     '/p/css03/esgf_publish/CMIP6/DCPP/']
+                     '/p/css03/esgf_publish/CMIP6/DCPP/',
+                     '/p/css03/esgf_publish/CMIP6/PAMIP/']
 #split_directories = [] ; # Test
 
 # directories to ignore
-rm_directories = ['/p/css03/esgf_publish/CMIP6/input4MIPs/', '/p/css03/esgf_publish/CMIP6/DCPP/']
+rm_directories = ['/p/css03/esgf_publish/CMIP6/input4MIPs/',
+                  '/p/css03/esgf_publish/CMIP6/DCPP/',
+                  '/p/css03/esgf_publish/CMIP6/PAMIP/']
 #rm_directories = [] ; # Test
 
 # variables to scan
