@@ -99,6 +99,8 @@ experiments = [
                 'faf-water',
                 'hist-CO2',
                 'hist-GHG',
+                'histSST',
+                'histSST-piaer',
                 'hist-aer',
                 'hist-all-aer2',
                 'hist-all-nat2',
