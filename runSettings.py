@@ -100,6 +100,7 @@ experiments = [
                 'hist-CO2',
                 'hist-GHG',
                 'histSST',
+                'hist-piAer',
                 'histSST-piAer',
                 'hist-aer',
                 'hist-all-aer2',
