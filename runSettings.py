@@ -26,13 +26,19 @@ data_directories = ['/p/css03/cmip5_css01/data/cmip5/output1/',
 split_directories = ['/p/css03/esgf_publish/CMIP6/',
                      '/p/css03/scratch/cmip6/',
                      '/p/css03/esgf_publish/CMIP6/DCPP/',
-                     '/p/css03/esgf_publish/CMIP6/PAMIP/']
+                     '/p/css03/esgf_publish/CMIP6/PAMIP/',
+                     '/p/css03/esgf_publish/CMIP6/CMIP/',
+                     '/p/css03/esgf_publish/CMIP6/ScenarioMIP/',
+                     '/p/css03/esgf_publish/CMIP6/DAMIP/']
 #split_directories = [] ; # Test
 
 # directories to ignore
 rm_directories = ['/p/css03/esgf_publish/CMIP6/input4MIPs/',
                   '/p/css03/esgf_publish/CMIP6/DCPP/',
-                  '/p/css03/esgf_publish/CMIP6/PAMIP/']
+                  '/p/css03/esgf_publish/CMIP6/PAMIP/',
+                  '/p/css03/esgf_publish/CMIP6/CMIP/',
+                  '/p/css03/esgf_publish/CMIP6/ScenarioMIP/',
+                  '/p/css03/esgf_publish/CMIP6/DAMIP/']
 #rm_directories = [] ; # Test
 
 # variables to scan

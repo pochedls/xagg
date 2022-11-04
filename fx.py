@@ -1301,6 +1301,7 @@ def resetXmlsByQuery(sqlDB, q):
             deleteCount += 1
     print('Removed ' + str(deleteCount) + ' xml files')
 
+
 def ignoreXmlsByQuery(sqlDB, q):
     """
     ignoreXmlsByQuery(sqlDb, q)

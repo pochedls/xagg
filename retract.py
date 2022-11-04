@@ -72,6 +72,23 @@ for row in allKeys:
     else:
         xaggKeys[key][path] = xmlfile
 
+# get xagg paths that are retracted
+print('Get xagg retracted files')
+print(time.ctime())
+print()
+q = 'select keyid, path, xmlfile from paths where ignored = 1 and error = "retracted";'
+x, allKeys = execQuery(xaggDb, q)
+xaggRetractedKeys = {}
+for row in allKeys:
+    key = row[0]
+    path = row[1]
+    xmlfile = row[2]
+    if key not in xaggRetractedKeys.keys():
+        xaggRetractedKeys[key] = {}
+        xaggRetractedKeys[key][path] = xmlfile
+    else:
+        xaggRetractedKeys[key][path] = xmlfile
+
 # get paths that need to be retracted
 print('Get paths to ignore')
 print(time.ctime())
@@ -80,6 +97,7 @@ retractList = []
 deleteList = {}
 datalist = []
 datalistXml = []
+esgfRetractedKeys = []
 for i, row in enumerate(retractedSet):
     # get metadata
     meta = row[1].split('.')
@@ -109,6 +127,7 @@ for i, row in enumerate(retractedSet):
     key = [mip, activity, institution, model, experiment, realization, table,
            realm, frequency, variableId, grid, gridLabel, version]
     key = '.'.join(key)
+    esgfRetractedKeys.append(key)
     if key in xaggKeys.keys():
         for rpath in xaggKeys[key].keys():
             fn = xaggKeys[key][rpath]
@@ -119,7 +138,6 @@ for i, row in enumerate(retractedSet):
                 xfnn = retractDir + fn.split('/')[-1]
                 deleteList[fn] = xfnn
                 datalistXml.append([xfnn, 'retracted', 1, ignoretime, rpath])
-
 
 print('Retract files')
 print(time.ctime())
@@ -143,8 +161,38 @@ for fn in deleteList:
         os.rename(fn, xfnn)
         deleteCount += 1
 
+# check for files that need to be un-retracted
+print('Find data that should be un-retracted')
+print(time.ctime())
+print()
+esgfRetractedKeys = set(esgfRetractedKeys)
+deleteList = []
+unretract = []
+unretractCount = 0
+for key in xaggRetractedKeys.keys():
+    if key not in esgfRetractedKeys:
+        dpaths = list(xaggRetractedKeys[key].keys())
+        for dpath in dpaths:
+            fn = xaggRetractedKeys[key][dpath]
+            unretract.append([None, None, None, 0, None, dpath])
+            unretractCount += 1
+            if fn is not None:
+                deleteList.append(fn)
+
+# mark paths as not retracted
+print('Un-retract data')
+print(time.ctime())
+print()
+columns = ['xmlFile', 'xmlwritedatetime', 'error', 'ignored', 'ignored_datetime']
+fx.sqlUpdate(xaggDb, 'paths', columns, 'path', unretract)
+# remove xmls
+for fn in deleteList:
+    if os.path.exists(fn):
+        os.remove(fn)
+
 print('Ignored ' + str(len(datalist)) + ' paths')
 print('Archived ' + str(deleteCount) + ' xml files')
+print('Un-ignored ' + str(unretractCount) + ' paths')
 print(time.ctime())
 print()
 
